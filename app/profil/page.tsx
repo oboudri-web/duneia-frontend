@@ -224,7 +224,7 @@ export default function Profil() {
             </div>
 
             {/* Email */}
-            <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'0.88rem', fontWeight:700, color:'#a48bff', marginBottom:'10px', textTransform:'uppercase', letterSpacing:'0.06em', fontSize:'0.72rem'}}>📧 Emails</div>
+            <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'0.72rem', fontWeight:700, color:'#a48bff', marginBottom:'10px', textTransform:'uppercase', letterSpacing:'0.06em'}}>📧 Emails</div>
             {[
               {key:'emailRappel', label:'Rappels de révision', desc:'Reçois un email quand tu n\'as pas révisé depuis 2 jours'},
               {key:'emailBulletin', label:'Nouveau bulletin Pronote', desc:'Notification dès qu\'un nouveau bulletin est disponible'},
