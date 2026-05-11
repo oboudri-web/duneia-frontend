@@ -84,7 +84,7 @@ export default function Paiement() {
   return (
     <div style={{minHeight:'100vh', position:'relative', zIndex:1, display:'flex', flexDirection:'column'}}>
       {/* NAV */}
-      <nav style={{position:'sticky', top:0, zIndex:100, background:'rgba(10,9,20,0.95)', backdropFilter:'blur(20px)', borderBottom:'2px solid #2a2740', padding:'14px 24px', display:'flex', alignItems:'center', gap:'14px'}}>
+      <nav style={{position:'sticky', top:0, zIndex:100, background:'rgba(10,9,20,0.95)', backdropFilter:'blur(20px)', borderBottom:'2px solid #2a2740', paddingTop:'50px', paddingLeft:'24px', paddingRight:'24px', paddingBottom:'14px', display:'flex', alignItems:'center', gap:'14px'}}>
         <button onClick={()=>router.back()} style={{background:'transparent', border:'2px solid #2a2740', borderRadius:'9px', color:'#8e8cb0', padding:'6px 12px', cursor:'pointer', fontFamily:'Nunito,sans-serif', fontWeight:800, fontSize:'0.82rem'}}>← Retour</button>
         <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'1.1rem', fontWeight:700, color:'#ffd166'}}>🎓 DuneIA</div>
         <div style={{marginLeft:'auto', fontSize:'0.78rem', fontWeight:700, color:'#8e8cb0'}}>🔒 Paiement sécurisé</div>
