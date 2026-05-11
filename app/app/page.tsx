@@ -406,7 +406,7 @@ Commence par un diagnostic en 2 phrases.`
 
   return (
     <div style={{minHeight:'100vh', position:'relative', zIndex:1}}>
-      <nav style={{position:'sticky', top:0, zIndex:100, background:'rgba(10,9,20,0.95)', backdropFilter:'blur(20px)', borderBottom:'2px solid #2a2740', padding:'12px 16px', display:'flex', alignItems:'center', gap:'12px'}}>
+      <nav style={{position:'sticky', top:0, zIndex:100, background:'rgba(10,9,20,0.95)', backdropFilter:'blur(20px)', borderBottom:'2px solid #2a2740', padding:'12px 16px', display:'flex', alignItems:'center', gap:'12px', paddingTop:'calc(12px + env(safe-area-inset-top))'}}>
         <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'1.1rem', fontWeight:700, color:'#ffd166', cursor:'pointer'}} onClick={()=>router.push('/')}>🎓 DuneIA</div>
         <div style={{marginLeft:'auto', display:'flex', alignItems:'center', gap:'10px'}}>
           <div style={{background:'rgba(255,209,102,0.1)', border:'1px solid rgba(255,209,102,0.25)', borderRadius:'100px', padding:'4px 12px', fontSize:'0.75rem', fontWeight:800, color:'#ffd166'}}>⭐ {xp} XP · Niv.{level}</div>
@@ -414,7 +414,7 @@ Commence par un diagnostic en 2 phrases.`
         </div>
       </nav>
 
-      <div style={{maxWidth:'680px', margin:'0 auto', padding:'16px'}}>
+      <div style={{maxWidth:'680px', margin:'0 auto', padding:'12px', overflowX:'hidden'}}>
         <div style={{background:'#131120', border:'2px solid #2a2740', borderRadius:'14px', padding:'14px 16px', marginBottom:'14px'}}>
           <div style={{display:'flex', justifyContent:'space-between', marginBottom:'6px'}}>
             <span style={{fontSize:'0.75rem', fontWeight:800, color:'#8e8cb0'}}>Niveau {level}</span>

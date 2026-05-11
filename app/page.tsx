@@ -9,9 +9,10 @@ export default function Landing() {
       {/* NAV */}
       <nav style={{
         position:'fixed', top:0, left:0, right:0, zIndex:100,
-        padding:'16px 40px', display:'flex', alignItems:'center', gap:'20px',
+        padding:'12px 16px', display:'flex', alignItems:'center', gap:'12px',
         background:'rgba(10,9,20,0.95)', backdropFilter:'blur(20px)',
-        borderBottom:'1px solid rgba(255,255,255,0.08)'
+        borderBottom:'1px solid rgba(255,255,255,0.08)',
+        paddingTop:'calc(12px + env(safe-area-inset-top))'
       }}>
         <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'1.5rem', fontWeight:700, color:'#ffd166', display:'flex', alignItems:'center', gap:'8px'}}>
           🎓 DuneIA
