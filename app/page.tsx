@@ -34,7 +34,7 @@ export default function Landing() {
 
       {/* HERO */}
       <div style={{minHeight:'100vh', display:'flex', alignItems:'center', justifyContent:'center', textAlign:'center', padding:'160px 24px 80px'}}>
-        <div style={{maxWidth:'780px'}}>
+        <div style={{maxWidth:'100%'}}>
           <div style={{
             display:'inline-flex', alignItems:'center', gap:'8px',
             background:'rgba(255,209,102,0.1)', border:'1px solid rgba(255,209,102,0.3)',
@@ -81,7 +81,7 @@ export default function Landing() {
       </div>
 
       {/* FEATURES */}
-      <div style={{padding:'80px 24px', maxWidth:'960px', margin:'0 auto'}} id="features">
+      <div style={{padding:'60px 16px', maxWidth:'100%', margin:'0 auto'}} id="features">
         <div style={{textAlign:'center', marginBottom:'50px'}}>
           <div style={{
             display:'inline-flex', alignItems:'center', gap:'6px',
@@ -120,7 +120,7 @@ export default function Landing() {
       </div>
 
       {/* PRICING */}
-      <div style={{padding:'80px 24px', maxWidth:'860px', margin:'0 auto'}}>
+      <div style={{padding:'60px 16px', maxWidth:'100%', margin:'0 auto'}}>
         <div style={{textAlign:'center', marginBottom:'50px'}}>
           <div style={{
             display:'inline-flex', alignItems:'center', gap:'6px',
@@ -187,8 +187,8 @@ export default function Landing() {
       </div>
 
       {/* CTA FINAL */}
-      <div style={{textAlign:'center', padding:'80px 24px'}}>
-        <div style={{maxWidth:'620px', margin:'0 auto', background:'linear-gradient(135deg,#1a1040,#15102a)', border:'2px solid rgba(124,92,252,0.4)', borderRadius:'26px', padding:'52px 36px'}}>
+      <div style={{textAlign:'center', padding:'60px 16px'}}>
+        <div style={{maxWidth:'100%', margin:'0 auto', background:'linear-gradient(135deg,#1a1040,#15102a)', border:'2px solid rgba(124,92,252,0.4)', borderRadius:'26px', padding:'52px 36px'}}>
           <h2 style={{fontFamily:'Fredoka,sans-serif', fontSize:'clamp(1.7rem,4vw,2.6rem)', fontWeight:700, marginBottom:'13px', lineHeight:1.2}}>
             Connecte ton Pronote<br/>et progresse vraiment 🚀
           </h2>
