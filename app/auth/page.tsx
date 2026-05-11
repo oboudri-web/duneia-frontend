@@ -89,10 +89,25 @@ function AuthContent() {
 
   return (
     <div style={{minHeight:'100vh', display:'flex', alignItems:'center', justifyContent:'center', padding:'24px', position:'relative', zIndex:1}}>
-      <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', maxWidth:'860px', width:'100%', background:'#131120', border:'2px solid #2a2740', borderRadius:'26px', overflow:'hidden', boxShadow:'0 40px 100px rgba(0,0,0,0.5)'}}>
+      <style>{`
+        @media (max-width: 640px) {
+          .auth-grid {
+            grid-template-columns: 1fr !important;
+          }
+          .auth-left {
+            border-right: none !important;
+            border-top: 2px solid #2a2740;
+            order: 2;
+          }
+          .auth-right {
+            order: 1;
+          }
+        }
+      `}</style>
+      <div className='auth-grid' style={{display:'grid', gridTemplateColumns:'1fr 1fr', maxWidth:'860px', width:'100%', background:'#131120', border:'2px solid #2a2740', borderRadius:'26px', overflow:'hidden', boxShadow:'0 40px 100px rgba(0,0,0,0.5)'}}>
 
         {/* LEFT */}
-        <div style={{background:'linear-gradient(135deg,rgba(124,92,252,0.22),rgba(255,107,157,0.12))', borderRight:'2px solid #2a2740', padding:'44px 32px', display:'flex', flexDirection:'column', justifyContent:'center'}}>
+        <div className='auth-left' style={{background:'linear-gradient(135deg,rgba(124,92,252,0.22),rgba(255,107,157,0.12))', borderRight:'2px solid #2a2740', padding:'44px 32px', display:'flex', flexDirection:'column', justifyContent:'center'}}>
           <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'1.5rem', fontWeight:700, color:'#ffd166', marginBottom:'36px'}}>🎓 DuneIA</div>
           <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'1.6rem', fontWeight:700, lineHeight:1.2, marginBottom:'10px'}}>
             Level up<br/><span style={{color:'#ffd166'}}>tes notes</span> 🚀
@@ -116,7 +131,7 @@ function AuthContent() {
         </div>
 
         {/* RIGHT */}
-        <div style={{padding:'44px 36px', display:'flex', flexDirection:'column', justifyContent:'center'}}>
+        <div className='auth-right' style={{padding:'44px 36px', display:'flex', flexDirection:'column', justifyContent:'center'}}>
           {/* TABS */}
           <div style={{display:'flex', gap:'4px', background:'#1c1a2e', borderRadius:'11px', padding:'4px', marginBottom:'28px'}}>
             {['login','signup'].map(t => (
