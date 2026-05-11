@@ -64,7 +64,7 @@ export default function Landing() {
               fontFamily:'Nunito,sans-serif', fontWeight:800, fontSize:'1rem', cursor:'pointer',
               boxShadow:'0 6px 28px rgba(124,92,252,0.4)'
             }}>🎮 Commencer gratuitement</button>
-            <a href="/auth" style={{
+            <a href="https://duneia-frontend.vercel.app/auth" style={{
               padding:'16px 32px', borderRadius:'14px',
               background:'transparent', border:'2px solid #2a2740',
               color:'#f0eeff', fontFamily:'Nunito,sans-serif', fontWeight:800, fontSize:'1rem', cursor:'pointer',
