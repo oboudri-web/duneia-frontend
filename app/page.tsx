@@ -9,10 +9,10 @@ export default function Landing() {
       {/* NAV */}
       <nav style={{
         position:'fixed', top:0, left:0, right:0, zIndex:100,
-        padding:'12px 16px', display:'flex', alignItems:'center', gap:'12px',
+        paddingTop:'50px', paddingLeft:'16px', paddingRight:'16px', paddingBottom:'12px',
+        display:'flex', alignItems:'center', gap:'12px',
         background:'rgba(10,9,20,0.95)', backdropFilter:'blur(20px)',
-        borderBottom:'1px solid rgba(255,255,255,0.08)',
-        paddingTop:'calc(12px + env(safe-area-inset-top))'
+        borderBottom:'1px solid rgba(255,255,255,0.08)'
       }}>
         <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'1.5rem', fontWeight:700, color:'#ffd166', display:'flex', alignItems:'center', gap:'8px'}}>
           🎓 DuneIA
@@ -33,7 +33,7 @@ export default function Landing() {
       </nav>
 
       {/* HERO */}
-      <div style={{minHeight:'100vh', display:'flex', alignItems:'center', justifyContent:'center', textAlign:'center', padding:'120px 24px 80px'}}>
+      <div style={{minHeight:'100vh', display:'flex', alignItems:'center', justifyContent:'center', textAlign:'center', padding:'160px 24px 80px'}}>
         <div style={{maxWidth:'780px'}}>
           <div style={{
             display:'inline-flex', alignItems:'center', gap:'8px',

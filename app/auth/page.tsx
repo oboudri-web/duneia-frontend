@@ -88,7 +88,14 @@ function AuthContent() {
   }
 
   return (
-    <div style={{minHeight:'100vh', display:'flex', alignItems:'center', justifyContent:'center', padding:'24px', position:'relative', zIndex:1}}>
+    <div style={{minHeight:'100vh', display:'flex', alignItems:'center', justifyContent:'center', padding:'16px', paddingTop:'60px', position:'relative', zIndex:1}}>
+      <style>{`
+        @media (max-width: 640px) {
+          .auth-grid { grid-template-columns: 1fr !important; }
+          .auth-left { display: none !important; }
+          .auth-right { padding: 24px !important; }
+        }
+      `}</style>
       <style>{`
         @media (max-width: 640px) {
           .auth-grid {
