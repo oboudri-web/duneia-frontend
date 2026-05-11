@@ -1,4 +1,5 @@
 'use client'
+import BottomNav from '../../components/BottomNav'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 
@@ -186,6 +187,7 @@ export default function Analyse() {
       <style>{`
         @keyframes spin { to { transform: rotate(360deg); } }
       `}</style>
+      <BottomNav active="analyse" />
     </div>
   )
 }

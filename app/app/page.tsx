@@ -1,4 +1,5 @@
 'use client'
+import BottomNav from '../../components/BottomNav'
 import { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 
@@ -648,6 +649,7 @@ Commence par un diagnostic en 2 phrases.`
           </div>
         </div>
       )}
+      <BottomNav active="app" />
     </div>
   )
 }
