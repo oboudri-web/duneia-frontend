@@ -1,9 +1,15 @@
 'use client'
 import { useRouter, usePathname } from 'next/navigation'
+import { useEffect, useState } from 'react'
 
 export default function BottomNav() {
   const router = useRouter()
-  const path = usePathname()
+  const pathname = usePathname()
+  const [currentPath, setCurrentPath] = useState('')
+
+  useEffect(() => {
+    setCurrentPath(window.location.pathname)
+  }, [pathname])
 
   const tabs = [
     { icon: '🏠', label: 'Accueil', href: '/app' },
@@ -13,11 +19,13 @@ export default function BottomNav() {
   ]
 
   const hiddenPaths = ['/', '/auth', '/onboarding', '/paiement']
-  if(hiddenPaths.includes(path || '')) return null
+  const isHidden = hiddenPaths.some(p => currentPath === p || currentPath === p + '/')
+  
+  if(isHidden || !currentPath) return null
 
   return (
     <>
-      <div style={{height:'90px'}}/>
+      <div style={{height:'80px'}}/>
       <nav style={{
         position:'fixed',
         bottom:0,
@@ -29,36 +37,22 @@ export default function BottomNav() {
         display:'flex',
         alignItems:'center',
         justifyContent:'space-around',
-        paddingTop:'10px',
-        paddingBottom:'calc(10px + env(safe-area-inset-bottom, 0px))',
-        minHeight:'60px',
+        padding:'10px 0 20px',
       }}>
         {tabs.map((tab, i) => {
-          const active = path === tab.href
+          const active = currentPath === tab.href || currentPath === tab.href + '/'
           return (
-            <button
-              key={i}
-              onClick={()=>router.push(tab.href)}
-              style={{
-                display:'flex',
-                flexDirection:'column',
-                alignItems:'center',
-                gap:'3px',
-                background: active ? 'rgba(124,92,252,0.15)' : 'transparent',
-                border: active ? '1px solid rgba(124,92,252,0.3)' : '1px solid transparent',
-                cursor:'pointer',
-                padding:'6px 18px',
-                borderRadius:'12px',
-                minWidth:'60px',
-              }}
-            >
+            <button key={i} onClick={()=>router.push(tab.href)} style={{
+              display:'flex', flexDirection:'column', alignItems:'center', gap:'3px',
+              background: active ? 'rgba(124,92,252,0.15)' : 'transparent',
+              border: active ? '1px solid rgba(124,92,252,0.3)' : '1px solid transparent',
+              cursor:'pointer', padding:'8px 16px', borderRadius:'12px',
+            }}>
               <span style={{fontSize:'1.2rem'}}>{tab.icon}</span>
               <span style={{
-                fontSize:'0.6rem',
-                fontWeight:800,
+                fontSize:'0.6rem', fontWeight:800,
                 color: active ? '#a48bff' : '#8e8cb0',
                 fontFamily:'Nunito,sans-serif',
-                whiteSpace:'nowrap',
               }}>{tab.label}</span>
             </button>
           )
