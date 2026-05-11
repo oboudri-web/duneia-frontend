@@ -330,7 +330,7 @@ Commence par un diagnostic en 2 phrases.`
           <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'1rem', fontWeight:700}}>📸 Photo du bulletin</div>
         </div>
         <div onClick={()=>document.getElementById('photoInput')?.click()} style={{border:'3px dashed rgba(124,92,252,0.35)', borderRadius:'16px', padding:'36px 20px', textAlign:'center', cursor:'pointer', background:'rgba(124,92,252,0.03)'}}>
-          <div style={{fontSize:'2.5rem', marginBottom:'10px'}}>📄</div>
+          <input id='photoInput' type='file' accept='image/*' style={{display:'none'}} onChange={()=>alert('OCR bientôt disponible !')}/><div style={{fontSize:'2.5rem', marginBottom:'10px'}}>📄</div>
           <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'0.95rem', fontWeight:700, marginBottom:'4px'}}>Photo de ton bulletin</div>
           <div style={{fontSize:'0.76rem', color:'#8e8cb0', fontWeight:600}}>OCR en cours de développement</div>
         </div>
@@ -371,7 +371,7 @@ Commence par un diagnostic en 2 phrases.`
         <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'1.1rem', fontWeight:700, color:'#ffd166', cursor:'pointer'}} onClick={()=>router.push('/')}>🎓 DuneIA</div>
         <div style={{marginLeft:'auto', display:'flex', alignItems:'center', gap:'10px'}}>
           <div style={{background:'rgba(255,209,102,0.1)', border:'1px solid rgba(255,209,102,0.25)', borderRadius:'100px', padding:'4px 12px', fontSize:'0.75rem', fontWeight:800, color:'#ffd166'}}>⭐ {xp} XP · Niv.{level}</div>
-          <div style={{width:'34px', height:'34px', borderRadius:'10px', background:'linear-gradient(135deg,#7c5cfc,#ff6b9d)', display:'flex', alignItems:'center', justifyContent:'center', fontSize:'1.1rem', cursor:'pointer'}}>{user?.avatar || '🧑‍🎓'}</div>
+          <div style={{width:'34px', height:'34px', borderRadius:'10px', background:'linear-gradient(135deg,#7c5cfc,#ff6b9d)', display:'flex', alignItems:'center', justifyContent:'center', fontSize:'1.1rem', cursor:'pointer'}} onClick={()=>router.push('/profil')}>{user?.avatar || '🧑‍🎓'}</div>
         </div>
       </nav>
 
