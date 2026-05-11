@@ -329,7 +329,7 @@ Commence par un diagnostic en 2 phrases.`
           <button onClick={()=>setImportMode('none')} style={{width:'32px', height:'32px', borderRadius:'9px', border:'2px solid #2a2740', background:'transparent', color:'#8e8cb0', cursor:'pointer', fontSize:'1rem'}}>←</button>
           <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'1rem', fontWeight:700}}>📸 Photo du bulletin</div>
         </div>
-        <div onClick={()=>photoRef.current?.click()} style={{border:'3px dashed rgba(124,92,252,0.35)', borderRadius:'16px', padding:'36px 20px', textAlign:'center', cursor:'pointer', background:'rgba(124,92,252,0.03)'}}>
+        <div onClick={()=>document.getElementById('photoInput')?.click()} style={{border:'3px dashed rgba(124,92,252,0.35)', borderRadius:'16px', padding:'36px 20px', textAlign:'center', cursor:'pointer', background:'rgba(124,92,252,0.03)'}}>
           <div style={{fontSize:'2.5rem', marginBottom:'10px'}}>📄</div>
           <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'0.95rem', fontWeight:700, marginBottom:'4px'}}>Photo de ton bulletin</div>
           <div style={{fontSize:'0.76rem', color:'#8e8cb0', fontWeight:600}}>OCR en cours de développement</div>
