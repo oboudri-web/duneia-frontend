@@ -209,8 +209,12 @@ export default function Landing() {
       <footer style={{borderTop:'1px solid #2a2740', padding:'36px 24px', textAlign:'center', background:'#0a0914'}}>
         <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'1.2rem', fontWeight:700, color:'#ffd166', marginBottom:'14px'}}>🎓 DuneIA</div>
         <div style={{display:'flex', gap:'18px', justifyContent:'center', flexWrap:'wrap', marginBottom:'14px'}}>
-          {['Mentions légales','CGV','Confidentialité'].map(l=>(
-            <span key={l} style={{color:'#8e8cb0', fontSize:'0.8rem', fontWeight:700, cursor:'pointer'}}>{l}</span>
+          {[
+            {label:'Mentions légales', url:'https://duneia-frontend.vercel.app/mentions'},
+            {label:'CGV', url:'https://duneia-frontend.vercel.app/cgv'},
+            {label:'Confidentialité', url:'https://duneia-frontend.vercel.app/confidentialite'},
+          ].map(l=>(
+            <a key={l.label} href={l.url} style={{color:'#8e8cb0', fontSize:'0.8rem', fontWeight:700, cursor:'pointer', textDecoration:'none'}}>{l.label}</a>
           ))}
         </div>
         <div style={{fontSize:'0.72rem', color:'#8e8cb0', fontWeight:600}}>
