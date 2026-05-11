@@ -148,6 +148,13 @@ function AuthContent() {
 
         {/* RIGHT */}
         <div className='auth-right' style={{padding:'44px 36px', display:'flex', flexDirection:'column', justifyContent:'center'}}>
+          {/* Mini features - mobile only */}
+          <div className="auth-mobile-features" style={{marginBottom:'16px', display:'flex', gap:'8px', flexWrap:'wrap'}}>
+            {['🔗 Sync Pronote','🧠 Plan IA 3 sem.','🎯 Annales IA','🧬 ADN scolaire'].map(f=>(
+              <div key={f} style={{background:'rgba(124,92,252,0.1)', border:'1px solid rgba(124,92,252,0.25)', borderRadius:'100px', padding:'4px 10px', fontSize:'0.7rem', fontWeight:800, color:'#a48bff'}}>{f}</div>
+            ))}
+          </div>
+
           {/* TABS */}
           <div style={{display:'flex', gap:'4px', background:'#1c1a2e', borderRadius:'11px', padding:'4px', marginBottom:'28px'}}>
             {['login','signup'].map(t => (
