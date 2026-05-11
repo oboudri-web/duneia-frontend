@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.css'
+import BottomNav from '../components/BottomNav'
 
 export const metadata: Metadata = {
   title: 'DuneIA — Connecte ton Pronote, progresse vraiment',
@@ -17,6 +18,7 @@ export default function RootLayout({
         <div className="bg-layer" />
         <div className="grid-bg" />
         {children}
+        <BottomNav />
       </body>
     </html>
   )
