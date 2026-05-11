@@ -78,6 +78,11 @@ export default function Landing() {
             <span>⭐ 4,9/5 sur 200+ avis</span>
             <span>🎓 6ème → Terminale</span>
           </div>
+          <div style={{marginTop:'20px'}}>
+            <a href="https://duneia-frontend.vercel.app/pour-les-parents" style={{display:'inline-flex', alignItems:'center', gap:'8px', background:'rgba(255,209,102,0.08)', border:'2px solid rgba(255,209,102,0.25)', borderRadius:'100px', padding:'10px 22px', color:'#ffd166', fontFamily:'Nunito,sans-serif', fontWeight:800, fontSize:'0.85rem', textDecoration:'none', cursor:'pointer'}}>
+              👨‍👩‍👧 Vous êtes parent ? Espace dédié →
+            </a>
+          </div>
         </div>
       </div>
 
