@@ -425,10 +425,18 @@ Commence par un diagnostic en 2 phrases.`
           </div>
         </div>
 
-        <div style={{background:'rgba(6,214,160,0.05)', border:'2px solid rgba(6,214,160,0.2)', borderRadius:'13px', padding:'11px 14px', marginBottom:'14px', display:'flex', alignItems:'center', gap:'10px', cursor:'pointer'}} onClick={()=>router.push('/onboarding')}>
-          <div style={{width:'8px', height:'8px', borderRadius:'50%', background:'#8e8cb0'}}/>
-          <span style={{fontSize:'0.8rem', fontWeight:800, color:'#8e8cb0'}}>Connecter Pronote pour importer tes notes automatiquement</span>
-          <span style={{marginLeft:'auto', fontSize:'0.75rem', fontWeight:800, color:'#06d6a0'}}>→</span>
+        <div style={{display:'flex', gap:'9px', marginBottom:'14px'}}>
+          <div style={{flex:1, background:'rgba(6,214,160,0.05)', border:'2px solid rgba(6,214,160,0.2)', borderRadius:'13px', padding:'11px 14px', display:'flex', alignItems:'center', gap:'10px', cursor:'pointer'}} onClick={()=>router.push('/onboarding')}>
+            <div style={{width:'8px', height:'8px', borderRadius:'50%', background:'#8e8cb0'}}/>
+            <span style={{fontSize:'0.78rem', fontWeight:800, color:'#8e8cb0'}}>Connecter Pronote</span>
+            <span style={{marginLeft:'auto', fontSize:'0.75rem', fontWeight:800, color:'#06d6a0'}}>→</span>
+          </div>
+          <div style={{background:'rgba(124,92,252,0.08)', border:'2px solid rgba(124,92,252,0.25)', borderRadius:'13px', padding:'11px 14px', display:'flex', alignItems:'center', gap:'6px', cursor:'pointer', flexShrink:0}} onClick={()=>router.push('/analyse')}>
+            <span style={{fontSize:'0.78rem', fontWeight:800, color:'#a48bff'}}>🧠 Analyse</span>
+          </div>
+          <div style={{background:'rgba(255,209,102,0.06)', border:'2px solid rgba(255,209,102,0.2)', borderRadius:'13px', padding:'11px 14px', display:'flex', alignItems:'center', gap:'6px', cursor:'pointer', flexShrink:0}} onClick={()=>router.push('/parents')}>
+            <span style={{fontSize:'0.78rem', fontWeight:800, color:'#ffd166'}}>👨‍👩‍👧</span>
+          </div>
         </div>
 
         <div style={{display:'flex', gap:'5px', overflowX:'auto', marginBottom:'14px', paddingBottom:'4px'}}>
