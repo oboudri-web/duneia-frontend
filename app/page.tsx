@@ -81,7 +81,7 @@ export default function Landing() {
       </div>
 
       {/* FEATURES */}
-      <div style={{padding:'80px 24px', maxWidth:'960px', margin:'0 auto'}} id="features">
+      <div id='features' style={{padding:'80px 24px', maxWidth:'960px', margin:'0 auto'}} id="features">
         <div style={{textAlign:'center', marginBottom:'50px'}}>
           <div style={{
             display:'inline-flex', alignItems:'center', gap:'6px',

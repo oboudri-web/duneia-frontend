@@ -88,7 +88,16 @@ function AuthContent() {
   }
 
   return (
-    <div style={{minHeight:'100vh', display:'flex', alignItems:'center', justifyContent:'center', padding:'16px', paddingTop:'60px', position:'relative', zIndex:1}}>
+    <div style={{minHeight:'100vh', display:'flex', flexDirection:'column', padding:'16px', paddingTop:'55px', position:'relative', zIndex:1}}>
+      {/* Back button */}
+      <button onClick={()=>router.push('/')} style={{
+        alignSelf:'flex-start', marginBottom:'16px',
+        background:'rgba(255,255,255,0.08)', border:'2px solid #2a2740',
+        borderRadius:'10px', color:'#f0eeff', padding:'8px 14px',
+        fontFamily:'Nunito,sans-serif', fontWeight:800, fontSize:'0.82rem',
+        cursor:'pointer', display:'flex', alignItems:'center', gap:'6px'
+      }}>← Retour</button>
+      <div style={{flex:1, display:'flex', alignItems:'center', justifyContent:'center'}}>
       <style>{`
         @media (max-width: 640px) {
           .auth-grid { grid-template-columns: 1fr !important; }
@@ -249,6 +258,7 @@ function AuthContent() {
             </div>
           )}
         </div>
+      </div>
       </div>
     </div>
   )
