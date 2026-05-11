@@ -2,7 +2,7 @@
 import { useRouter } from 'next/navigation'
 
 interface Props {
-  active: 'app' | 'analyse' | 'parents' | 'profil'
+  active?: 'app' | 'analyse' | 'parents' | 'profil'
 }
 
 export default function BottomNav({ active }: Props) {
