@@ -406,16 +406,16 @@ Commence par un diagnostic en 2 phrases.`
   }
 
   return (
-    <div style={{minHeight:'100vh', position:'relative', zIndex:1, overflowX:'hidden', maxWidth:'100vw'}}>
-      <nav style={{position:'sticky', top:0, zIndex:100, background:'rgba(10,9,20,0.95)', backdropFilter:'blur(20px)', borderBottom:'2px solid #2a2740', paddingTop:'50px', paddingLeft:'16px', paddingRight:'16px', paddingBottom:'12px', display:'flex', alignItems:'center', gap:'12px'}}>
+    <div style={{minHeight:'100vh', position:'relative', zIndex:1, overflowX:'hidden', width:'100%'}}>
+      <nav style={{position:'sticky', top:0, zIndex:100, background:'rgba(10,9,20,0.95)', backdropFilter:'blur(20px)', borderBottom:'2px solid #2a2740', padding:'50px 12px 12px 12px', display:'flex', alignItems:'center', gap:'8px', width:'100%', boxSizing:'border-box'}}>
         <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'1.1rem', fontWeight:700, color:'#ffd166', cursor:'pointer'}} onClick={()=>router.push('/')}>🎓 DuneIA</div>
         <div style={{marginLeft:'auto', display:'flex', alignItems:'center', gap:'10px'}}>
-          <div style={{background:'rgba(255,209,102,0.1)', border:'1px solid rgba(255,209,102,0.25)', borderRadius:'100px', padding:'4px 12px', fontSize:'0.75rem', fontWeight:800, color:'#ffd166'}}>⭐ {xp} XP · Niv.{level}</div>
+          <div style={{background:'rgba(255,209,102,0.1)', border:'1px solid rgba(255,209,102,0.25)', borderRadius:'100px', padding:'4px 8px', fontSize:'0.7rem', fontWeight:800, color:'#ffd166', whiteSpace:'nowrap'}}>⭐ {xp} XP · Niv.{level}</div>
           <div style={{width:'34px', height:'34px', borderRadius:'10px', background:'linear-gradient(135deg,#7c5cfc,#ff6b9d)', display:'flex', alignItems:'center', justifyContent:'center', fontSize:'1.1rem', cursor:'pointer'}} onClick={()=>router.push('/profil')}>{user?.avatar || '🧑‍🎓'}</div>
         </div>
       </nav>
 
-      <div style={{width:'100%', maxWidth:'680px', margin:'0 auto', padding:'12px', boxSizing:'border-box', overflowX:'hidden'}}>
+      <div style={{width:'100%', maxWidth:'680px', margin:'0 auto', padding:'8px', boxSizing:'border-box', overflowX:'hidden'}}>
         <div style={{background:'#131120', border:'2px solid #2a2740', borderRadius:'14px', padding:'14px 16px', marginBottom:'14px'}}>
           <div style={{display:'flex', justifyContent:'space-between', marginBottom:'6px'}}>
             <span style={{fontSize:'0.75rem', fontWeight:800, color:'#8e8cb0'}}>Niveau {level}</span>
@@ -442,7 +442,7 @@ Commence par un diagnostic en 2 phrases.`
 
         <div style={{display:'flex', gap:'5px', overflowX:'auto', marginBottom:'14px', paddingBottom:'4px'}}>
           {TABS.map(tab=>(
-            <button key={tab.id} onClick={()=>handleTab(tab)} style={{flexShrink:0, display:'flex', flexDirection:'column', alignItems:'center', gap:'2px', padding:'8px 10px', borderRadius:'10px', border:'none', cursor:'pointer', background:activeTab===tab.id?'#7c5cfc':'transparent', color:activeTab===tab.id?'white':'#8e8cb0', fontFamily:'Nunito,sans-serif', fontWeight:800, fontSize:'0.72rem', boxShadow:activeTab===tab.id?'0 4px 16px rgba(124,92,252,0.38)':'none', transition:'all 0.2s'}}>
+            <button key={tab.id} onClick={()=>handleTab(tab)} style={{flexShrink:0, display:'flex', flexDirection:'column', alignItems:'center', gap:'2px', padding:'6px 8px', borderRadius:'10px', border:'none', cursor:'pointer', background:activeTab===tab.id?'#7c5cfc':'transparent', color:activeTab===tab.id?'white':'#8e8cb0', fontFamily:'Nunito,sans-serif', fontWeight:800, fontSize:'0.65rem', boxShadow:activeTab===tab.id?'0 4px 16px rgba(124,92,252,0.38)':'none', transition:'all 0.2s'}}>
               <span style={{fontSize:'1rem'}}>{tab.icon}</span>
               {tab.label}
               <span style={{fontSize:'0.55rem', opacity:0.7}}>{tab.sub}</span>
