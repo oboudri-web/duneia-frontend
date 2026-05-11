@@ -330,7 +330,46 @@ Commence par un diagnostic en 2 phrases.`
           <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'1rem', fontWeight:700}}>📸 Photo du bulletin</div>
         </div>
         <div onClick={()=>document.getElementById('photoInput')?.click()} style={{border:'3px dashed rgba(124,92,252,0.35)', borderRadius:'16px', padding:'36px 20px', textAlign:'center', cursor:'pointer', background:'rgba(124,92,252,0.03)'}}>
-          <input id='photoInput' type='file' accept='image/*' style={{display:'none'}} onChange={()=>alert('OCR bientôt disponible !')}/><div style={{fontSize:'2.5rem', marginBottom:'10px'}}>📄</div>
+          <input id='photoInput' type='file' accept='image/*' style={{display:'none'}} onChange={async(e)=>{
+  const file = e.target.files?.[0]
+  if(!file) return
+  const reader = new FileReader()
+  reader.onload = async(ev) => {
+    const base64 = (ev.target?.result as string).split(',')[1]
+    const mime = file.type || 'image/jpeg'
+    const token = localStorage.getItem('duneia_token')
+    // Show loading
+    const dropEl = document.getElementById('photoDrop')
+    if(dropEl) dropEl.innerHTML = '<div style="text-align:center;padding:20px"><div style="font-size:1.5rem;margin-bottom:8px">⏳</div><div style="font-family:Fredoka,sans-serif;font-weight:700">Lecture du bulletin...</div></div>'
+    try {
+      const r = await fetch('https://scolaria-backend-production.up.railway.app/api/ocr/bulletin', {
+        method:'POST',
+        headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},
+        body: JSON.stringify({imageBase64: base64, mimeType: mime})
+      })
+      const d = await r.json()
+      if(!d.success) throw new Error(d.error)
+      // Fill notes from OCR
+      const triIdx = d.data.trimestre?.includes('1')?0:d.data.trimestre?.includes('2')?1:2
+      const newNotes = d.data.matieres?.map((m:any)=>({
+        matiere: m.nom || '',
+        note: m.note?.toString() || '',
+        appreciation: m.appreciation || ''
+      })) || []
+      setNotes(prev => {
+        const updated = {...prev, [triIdx]: newNotes}
+        localStorage.setItem('duneia_notes', JSON.stringify(updated))
+        return updated
+      })
+      setActiveTab(triIdx)
+      setImportMode('none')
+      if(dropEl) dropEl.innerHTML = ''
+    } catch(err:any) {
+      if(dropEl) dropEl.innerHTML = '<div style="color:#ef476f;text-align:center;padding:20px">❌ ' + (err.message||'Erreur') + '</div>'
+    }
+  }
+  reader.readAsDataURL(file)
+}}/><div style={{fontSize:'2.5rem', marginBottom:'10px'}}>📄</div>
           <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'0.95rem', fontWeight:700, marginBottom:'4px'}}>Photo de ton bulletin</div>
           <div style={{fontSize:'0.76rem', color:'#8e8cb0', fontWeight:600}}>OCR en cours de développement</div>
         </div>

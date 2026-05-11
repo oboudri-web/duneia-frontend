@@ -45,6 +45,19 @@ export default function Onboarding() {
       if(!r.ok) throw new Error(d.error)
       setSynced(true)
       setSyncMsg((d.data?.notes?.length || 0) + ' notes récupérées — ' + (d.data?.trimestre || ''))
+      // Store Pronote data in localStorage for app
+      if(d.data?.matieres || d.data?.notes) {
+        const triIdx = d.data.trimestre?.includes('1')?0:d.data.trimestre?.includes('2')?1:2
+        const notes = d.data.appreciations?.map((a:any)=>({
+          matiere: a.matiere || '',
+          note: a.moyenne_eleve?.toString() || '',
+          appreciation: a.appreciation || ''
+        })) || []
+        const existing = JSON.parse(localStorage.getItem('duneia_notes') || '{"0":[],"1":[],"2":[]}')
+        existing[triIdx] = notes
+        localStorage.setItem('duneia_notes', JSON.stringify(existing))
+        localStorage.setItem('duneia_pronote_connected', '1')
+      }
     } catch(e:any) {
       alert('Erreur Pronote : ' + e.message)
     } finally { setSyncing(false) }
