@@ -406,7 +406,7 @@ Commence par un diagnostic en 2 phrases.`
   }
 
   return (
-    <div style={{minHeight:'100vh', position:'relative', zIndex:1}}>
+    <div style={{minHeight:'100vh', position:'relative', zIndex:1, overflowX:'hidden', maxWidth:'100vw'}}>
       <nav style={{position:'sticky', top:0, zIndex:100, background:'rgba(10,9,20,0.95)', backdropFilter:'blur(20px)', borderBottom:'2px solid #2a2740', paddingTop:'50px', paddingLeft:'16px', paddingRight:'16px', paddingBottom:'12px', display:'flex', alignItems:'center', gap:'12px'}}>
         <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'1.1rem', fontWeight:700, color:'#ffd166', cursor:'pointer'}} onClick={()=>router.push('/')}>🎓 DuneIA</div>
         <div style={{marginLeft:'auto', display:'flex', alignItems:'center', gap:'10px'}}>
@@ -415,7 +415,7 @@ Commence par un diagnostic en 2 phrases.`
         </div>
       </nav>
 
-      <div style={{maxWidth:'100%', margin:'0 auto', padding:'12px 12px', overflowX:'hidden', boxSizing:'border-box'}}>
+      <div style={{width:'100%', maxWidth:'680px', margin:'0 auto', padding:'12px', boxSizing:'border-box', overflowX:'hidden'}}>
         <div style={{background:'#131120', border:'2px solid #2a2740', borderRadius:'14px', padding:'14px 16px', marginBottom:'14px'}}>
           <div style={{display:'flex', justifyContent:'space-between', marginBottom:'6px'}}>
             <span style={{fontSize:'0.75rem', fontWeight:800, color:'#8e8cb0'}}>Niveau {level}</span>
