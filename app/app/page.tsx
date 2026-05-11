@@ -415,7 +415,7 @@ Commence par un diagnostic en 2 phrases.`
         </div>
       </nav>
 
-      <div style={{maxWidth:'680px', margin:'0 auto', padding:'12px', overflowX:'hidden'}}>
+      <div style={{maxWidth:'100%', margin:'0 auto', padding:'12px 12px', overflowX:'hidden', boxSizing:'border-box'}}>
         <div style={{background:'#131120', border:'2px solid #2a2740', borderRadius:'14px', padding:'14px 16px', marginBottom:'14px'}}>
           <div style={{display:'flex', justifyContent:'space-between', marginBottom:'6px'}}>
             <span style={{fontSize:'0.75rem', fontWeight:800, color:'#8e8cb0'}}>Niveau {level}</span>
