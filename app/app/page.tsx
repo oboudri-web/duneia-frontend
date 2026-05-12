@@ -388,6 +388,7 @@ Commence par un diagnostic en 2 phrases.`
         </div>
         <button onClick={()=>router.push('/onboarding')} style={{...btn, width:'100%'}}>🔗 Connecter Pronote</button>
         <button onClick={()=>router.push('/revision')} style={{...btn, width:'100%', background:'linear-gradient(135deg,rgba(255,209,102,0.15),rgba(255,159,28,0.08))', border:'2px solid rgba(255,209,102,0.3)', color:'#ffd166'}}>📚 Mode Révision — Tuteur IA + QCM</button>
+        <button onClick={()=>router.push('/jeux')} style={{...btn, width:'100%', background:'linear-gradient(135deg,rgba(255,107,157,0.15),rgba(124,92,252,0.08))', border:'2px solid rgba(255,107,157,0.3)', color:'#ff6b9d'}}>🎮 Jeux — Speed Quiz + Duel + Défi du jour</button>
       </div>
     )
     return null
