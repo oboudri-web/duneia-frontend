@@ -387,6 +387,7 @@ Commence par un diagnostic en 2 phrases.`
           <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'1rem', fontWeight:700}}>🔗 Sync Pronote</div>
         </div>
         <button onClick={()=>router.push('/onboarding')} style={{...btn, width:'100%'}}>🔗 Connecter Pronote</button>
+        <button onClick={()=>router.push('/revision')} style={{...btn, width:'100%', background:'linear-gradient(135deg,rgba(255,209,102,0.15),rgba(255,159,28,0.08))', border:'2px solid rgba(255,209,102,0.3)', color:'#ffd166'}}>📚 Mode Révision — Tuteur IA + QCM</button>
       </div>
     )
     return null

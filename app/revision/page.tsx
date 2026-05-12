@@ -1,0 +1,326 @@
+'use client'
+import { useState, useEffect, useRef } from 'react'
+import { useRouter } from 'next/navigation'
+import BottomNav from '../../components/BottomNav'
+
+const BACKEND = 'https://scolaria-backend-production.up.railway.app'
+
+export default function Revision() {
+  const router = useRouter()
+  const [user, setUser] = useState<any>(null)
+  const [mode, setMode] = useState<'menu'|'tuteur'|'qcm'>('menu')
+  
+  // Tuteur
+  const [messages, setMessages] = useState<any[]>([])
+  const [input, setInput] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [matiere, setMatiere] = useState('Mathématiques')
+  const messagesEnd = useRef<any>(null)
+
+  // QCM
+  const [qcmMatiere, setQcmMatiere] = useState('Mathématiques')
+  const [qcmChapitre, setQcmChapitre] = useState('')
+  const [qcm, setQcm] = useState<any>(null)
+  const [qcmLoading, setQcmLoading] = useState(false)
+  const [currentQ, setCurrentQ] = useState(0)
+  const [selected, setSelected] = useState<number|null>(null)
+  const [answered, setAnswered] = useState(false)
+  const [score, setScore] = useState(0)
+  const [finished, setFinished] = useState(false)
+
+  const matieres = ['Mathématiques','Français','Histoire-Géo','Physique-Chimie','SVT','Anglais','Espagnol','Philosophie','SES','NSI']
+
+  useEffect(() => {
+    const u = localStorage.getItem('duneia_user')
+    if(!u) { router.push('/auth'); return }
+    setUser(JSON.parse(u))
+  }, [])
+
+  useEffect(() => {
+    messagesEnd.current?.scrollIntoView({ behavior: 'smooth' })
+  }, [messages])
+
+  async function sendMessage() {
+    if(!input.trim() || loading) return
+    const userMsg = { role: 'user', content: input }
+    const newMessages = [...messages, userMsg]
+    setMessages(newMessages)
+    setInput('')
+    setLoading(true)
+    try {
+      const token = localStorage.getItem('duneia_token')
+      const r = await fetch(BACKEND+'/api/ai/tuteur', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json','Authorization':'Bearer '+token},
+        body: JSON.stringify({
+          question: input,
+          matiere,
+          classe: user?.classe,
+          historique: messages.slice(-6)
+        })
+      })
+      const d = await r.json()
+      if(d.success) {
+        setMessages([...newMessages, { role: 'assistant', content: d.reponse }])
+      }
+    } catch(e) { console.error(e) }
+    finally { setLoading(false) }
+  }
+
+  async function genererQCM() {
+    setQcmLoading(true)
+    setQcm(null)
+    setCurrentQ(0)
+    setScore(0)
+    setFinished(false)
+    setSelected(null)
+    setAnswered(false)
+    try {
+      const token = localStorage.getItem('duneia_token')
+      const r = await fetch(BACKEND+'/api/ai/qcm', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json','Authorization':'Bearer '+token},
+        body: JSON.stringify({ matiere: qcmMatiere, classe: user?.classe, chapitre: qcmChapitre, nbQuestions: 5 })
+      })
+      const d = await r.json()
+      if(d.success) setQcm(d.qcm)
+    } catch(e) { console.error(e) }
+    finally { setQcmLoading(false) }
+  }
+
+  function repondre(idx: number) {
+    if(answered) return
+    setSelected(idx)
+    setAnswered(true)
+    if(idx === qcm.questions[currentQ].bonne_reponse) setScore(s=>s+1)
+  }
+
+  function suivant() {
+    if(currentQ < qcm.questions.length - 1) {
+      setCurrentQ(q=>q+1)
+      setSelected(null)
+      setAnswered(false)
+    } else {
+      setFinished(true)
+    }
+  }
+
+  const btn = {padding:'8px 16px', borderRadius:'10px', border:'none', cursor:'pointer', fontFamily:'Nunito,sans-serif', fontWeight:800, fontSize:'0.82rem'}
+
+  return (
+    <div style={{minHeight:'100vh', position:'relative', zIndex:1}}>
+      <nav style={{position:'sticky', top:0, zIndex:100, background:'rgba(10,9,20,0.97)', backdropFilter:'blur(20px)', borderBottom:'2px solid #2a2740', paddingTop:'50px', paddingLeft:'16px', paddingRight:'16px', paddingBottom:'12px', display:'flex', alignItems:'center', gap:'12px'}}>
+        <button onClick={()=>mode==='menu'?router.push('/app'):setMode('menu')} style={{...btn, background:'rgba(255,255,255,0.06)', color:'#8e8cb0'}}>← {mode==='menu'?'App':'Menu'}</button>
+        <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'1.1rem', fontWeight:700, color:'#ffd166'}}>🎓 DuneIA</div>
+        <div style={{marginLeft:'auto', fontSize:'0.78rem', fontWeight:800, color:'#a48bff'}}>
+          {mode==='tuteur'?'🧑‍🏫 Tuteur IA':mode==='qcm'?'❓ QCM':'📚 Révision'}
+        </div>
+      </nav>
+
+      <div style={{maxWidth:'680px', margin:'0 auto', padding:'20px 16px'}}>
+
+        {/* MENU */}
+        {mode==='menu' && (
+          <div>
+            <div style={{textAlign:'center', marginBottom:'30px'}}>
+              <div style={{fontSize:'3rem', marginBottom:'12px'}}>📚</div>
+              <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'1.4rem', fontWeight:700, marginBottom:'8px'}}>Mode Révision</div>
+              <p style={{fontSize:'0.84rem', color:'#8e8cb0', fontWeight:600}}>Choisis comment tu veux réviser aujourd'hui</p>
+            </div>
+
+            <div style={{display:'grid', gap:'14px'}}>
+              <div onClick={()=>setMode('tuteur')} style={{background:'#131120', border:'2px solid rgba(124,92,252,0.3)', borderRadius:'20px', padding:'24px', cursor:'pointer', transition:'all 0.2s'}}>
+                <div style={{display:'flex', alignItems:'center', gap:'14px', marginBottom:'12px'}}>
+                  <div style={{width:'48px', height:'48px', borderRadius:'14px', background:'rgba(124,92,252,0.15)', display:'flex', alignItems:'center', justifyContent:'center', fontSize:'1.5rem'}}>🧑‍🏫</div>
+                  <div>
+                    <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'1.1rem', fontWeight:700}}>Tuteur IA Socratique</div>
+                    <div style={{fontSize:'0.76rem', color:'#8e8cb0', fontWeight:600}}>L'IA te guide sans donner les réponses</div>
+                  </div>
+                </div>
+                <div style={{display:'flex', gap:'8px', flexWrap:'wrap'}}>
+                  {['🤔 Méthode socratique','💬 Conversation naturelle','📚 Toutes matières'].map(t=>(
+                    <span key={t} style={{background:'rgba(124,92,252,0.1)', border:'1px solid rgba(124,92,252,0.2)', borderRadius:'100px', padding:'3px 10px', fontSize:'0.7rem', fontWeight:800, color:'#a48bff'}}>{t}</span>
+                  ))}
+                </div>
+              </div>
+
+              <div onClick={()=>setMode('qcm')} style={{background:'#131120', border:'2px solid rgba(255,209,102,0.3)', borderRadius:'20px', padding:'24px', cursor:'pointer', transition:'all 0.2s'}}>
+                <div style={{display:'flex', alignItems:'center', gap:'14px', marginBottom:'12px'}}>
+                  <div style={{width:'48px', height:'48px', borderRadius:'14px', background:'rgba(255,209,102,0.12)', display:'flex', alignItems:'center', justifyContent:'center', fontSize:'1.5rem'}}>❓</div>
+                  <div>
+                    <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'1.1rem', fontWeight:700}}>QCM Généré par l'IA</div>
+                    <div style={{fontSize:'0.76rem', color:'#8e8cb0', fontWeight:600}}>Questions personnalisées sur tes lacunes</div>
+                  </div>
+                </div>
+                <div style={{display:'flex', gap:'8px', flexWrap:'wrap'}}>
+                  {['🎯 Ciblé sur tes lacunes','📊 Score instantané','💡 Explications détaillées'].map(t=>(
+                    <span key={t} style={{background:'rgba(255,209,102,0.08)', border:'1px solid rgba(255,209,102,0.2)', borderRadius:'100px', padding:'3px 10px', fontSize:'0.7rem', fontWeight:800, color:'#ffd166'}}>{t}</span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* TUTEUR IA */}
+        {mode==='tuteur' && (
+          <div>
+            <div style={{marginBottom:'14px'}}>
+              <select value={matiere} onChange={e=>setMatiere(e.target.value)} style={{width:'100%', background:'#1c1a2e', border:'2px solid #2a2740', borderRadius:'10px', padding:'10px', color:'#f0eeff', fontFamily:'Nunito,sans-serif', fontSize:'0.9rem', fontWeight:700, outline:'none'}}>
+                {matieres.map(m=><option key={m} value={m}>{m}</option>)}
+              </select>
+            </div>
+
+            {messages.length === 0 && (
+              <div style={{background:'rgba(124,92,252,0.08)', border:'2px solid rgba(124,92,252,0.2)', borderRadius:'16px', padding:'20px', marginBottom:'14px', textAlign:'center'}}>
+                <div style={{fontSize:'1.5rem', marginBottom:'8px'}}>🧑‍🏫</div>
+                <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'1rem', fontWeight:700, marginBottom:'6px'}}>Bonjour ! Je suis ton tuteur DuneIA</div>
+                <p style={{fontSize:'0.82rem', color:'#8e8cb0', fontWeight:600, lineHeight:1.7}}>Pose-moi une question sur tes cours. Je vais te guider avec des questions pour que tu comprennes vraiment — sans te donner la réponse directement 😊</p>
+              </div>
+            )}
+
+            <div style={{display:'flex', flexDirection:'column', gap:'10px', marginBottom:'14px', maxHeight:'400px', overflowY:'auto'}}>
+              {messages.map((m,i)=>(
+                <div key={i} style={{display:'flex', justifyContent:m.role==='user'?'flex-end':'flex-start'}}>
+                  <div style={{
+                    maxWidth:'80%', padding:'12px 16px', borderRadius:m.role==='user'?'18px 18px 4px 18px':'18px 18px 18px 4px',
+                    background:m.role==='user'?'linear-gradient(135deg,#7c5cfc,#ff6b9d)':'#131120',
+                    border:m.role==='assistant'?'2px solid #2a2740':'none',
+                    fontSize:'0.84rem', fontWeight:600, lineHeight:1.7, color:'#f0eeff'
+                  }}>
+                    {m.role==='assistant' && <div style={{fontSize:'0.7rem', fontWeight:800, color:'#a48bff', marginBottom:'4px'}}>🧑‍🏫 Tuteur DuneIA</div>}
+                    {m.content}
+                  </div>
+                </div>
+              ))}
+              {loading && (
+                <div style={{display:'flex', justifyContent:'flex-start'}}>
+                  <div style={{background:'#131120', border:'2px solid #2a2740', borderRadius:'18px 18px 18px 4px', padding:'12px 16px'}}>
+                    <div style={{display:'flex', gap:'4px'}}>
+                      {[0,1,2].map(i=><div key={i} style={{width:'6px', height:'6px', borderRadius:'50%', background:'#a48bff', animation:`bounce 0.8s ${i*0.2}s infinite`}}/>)}
+                    </div>
+                  </div>
+                </div>
+              )}
+              <div ref={messagesEnd}/>
+            </div>
+
+            <div style={{display:'flex', gap:'10px'}}>
+              <input
+                value={input}
+                onChange={e=>setInput(e.target.value)}
+                onKeyDown={e=>e.key==='Enter'&&sendMessage()}
+                placeholder="Pose ta question..."
+                style={{flex:1, background:'#1c1a2e', border:'2px solid #2a2740', borderRadius:'12px', padding:'12px', color:'#f0eeff', fontFamily:'Nunito,sans-serif', fontSize:'0.9rem', fontWeight:600, outline:'none'}}
+              />
+              <button onClick={sendMessage} disabled={loading||!input.trim()} style={{...btn, background:'linear-gradient(135deg,#7c5cfc,#ff6b9d)', color:'white', padding:'12px 20px', opacity:loading||!input.trim()?0.5:1}}>→</button>
+            </div>
+          </div>
+        )}
+
+        {/* QCM */}
+        {mode==='qcm' && (
+          <div>
+            {!qcm ? (
+              <div>
+                <div style={{marginBottom:'14px'}}>
+                  <label style={{fontSize:'0.78rem', fontWeight:800, color:'#8e8cb0', textTransform:'uppercase', letterSpacing:'0.06em', display:'block', marginBottom:'6px'}}>Matière</label>
+                  <select value={qcmMatiere} onChange={e=>setQcmMatiere(e.target.value)} style={{width:'100%', background:'#1c1a2e', border:'2px solid #2a2740', borderRadius:'10px', padding:'10px', color:'#f0eeff', fontFamily:'Nunito,sans-serif', fontSize:'0.9rem', fontWeight:700, outline:'none'}}>
+                    {matieres.map(m=><option key={m} value={m}>{m}</option>)}
+                  </select>
+                </div>
+                <div style={{marginBottom:'20px'}}>
+                  <label style={{fontSize:'0.78rem', fontWeight:800, color:'#8e8cb0', textTransform:'uppercase', letterSpacing:'0.06em', display:'block', marginBottom:'6px'}}>Chapitre (optionnel)</label>
+                  <input value={qcmChapitre} onChange={e=>setQcmChapitre(e.target.value)} placeholder="ex: Les fractions, La Révolution française..." style={{width:'100%', background:'#1c1a2e', border:'2px solid #2a2740', borderRadius:'10px', padding:'10px', color:'#f0eeff', fontFamily:'Nunito,sans-serif', fontSize:'0.9rem', fontWeight:600, outline:'none', boxSizing:'border-box'}}/>
+                </div>
+                <button onClick={genererQCM} disabled={qcmLoading} style={{...btn, background:'linear-gradient(135deg,#7c5cfc,#ff6b9d)', color:'white', width:'100%', padding:'14px', fontSize:'0.95rem', opacity:qcmLoading?0.7:1}}>
+                  {qcmLoading ? '⏳ Génération du QCM...' : '🎯 Générer le QCM'}
+                </button>
+              </div>
+            ) : finished ? (
+              <div style={{textAlign:'center', padding:'40px 20px'}}>
+                <div style={{fontSize:'3rem', marginBottom:'16px'}}>{score>=4?'🏆':score>=3?'⭐':'💪'}</div>
+                <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'1.6rem', fontWeight:700, marginBottom:'8px'}}>
+                  {score}/{qcm.questions.length} bonnes réponses
+                </div>
+                <div style={{fontSize:'0.9rem', color:'#8e8cb0', fontWeight:600, marginBottom:'24px'}}>
+                  {score>=4?'Excellent ! Tu maîtrises ce chapitre 🎉':score>=3?'Bien ! Quelques révisions et tu y es 📚':'Continue à réviser, tu vas y arriver 💪'}
+                </div>
+                <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:'10px'}}>
+                  <button onClick={()=>{setQcm(null);setFinished(false);setScore(0)}} style={{...btn, background:'rgba(124,92,252,0.1)', color:'#a48bff', border:'2px solid rgba(124,92,252,0.3)', padding:'12px'}}>
+                    🔄 Nouveau QCM
+                  </button>
+                  <button onClick={()=>setMode('tuteur')} style={{...btn, background:'linear-gradient(135deg,#7c5cfc,#ff6b9d)', color:'white', padding:'12px'}}>
+                    🧑‍🏫 Tuteur IA
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div>
+                <div style={{display:'flex', alignItems:'center', justifyContent:'space-between', marginBottom:'16px'}}>
+                  <div style={{fontSize:'0.78rem', fontWeight:800, color:'#8e8cb0'}}>Question {currentQ+1}/{qcm.questions.length}</div>
+                  <div style={{fontSize:'0.78rem', fontWeight:800, color:'#06d6a0'}}>Score : {score}/{currentQ}</div>
+                </div>
+
+                <div style={{background:'rgba(255,255,255,0.04)', borderRadius:'6px', height:'4px', marginBottom:'20px', overflow:'hidden'}}>
+                  <div style={{height:'100%', background:'linear-gradient(135deg,#7c5cfc,#ff6b9d)', width:`${((currentQ)/qcm.questions.length)*100}%`, transition:'width 0.3s'}}/>
+                </div>
+
+                <div style={{background:'#131120', border:'2px solid #2a2740', borderRadius:'18px', padding:'22px', marginBottom:'14px'}}>
+                  <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'1rem', fontWeight:700, lineHeight:1.5}}>
+                    {qcm.questions[currentQ].question}
+                  </div>
+                </div>
+
+                <div style={{display:'flex', flexDirection:'column', gap:'10px', marginBottom:'14px'}}>
+                  {qcm.questions[currentQ].options.map((opt:string, i:number)=>{
+                    const isCorrect = i === qcm.questions[currentQ].bonne_reponse
+                    const isSelected = i === selected
+                    let bg = '#131120'
+                    let border = '#2a2740'
+                    let color = '#f0eeff'
+                    if(answered) {
+                      if(isCorrect) { bg='rgba(6,214,160,0.1)'; border='rgba(6,214,160,0.4)'; color='#06d6a0' }
+                      else if(isSelected) { bg='rgba(239,71,111,0.1)'; border='rgba(239,71,111,0.4)'; color='#ef476f' }
+                    } else if(isSelected) {
+                      bg='rgba(124,92,252,0.1)'; border='rgba(124,92,252,0.4)'
+                    }
+                    return (
+                      <div key={i} onClick={()=>repondre(i)} style={{
+                        background:bg, border:`2px solid ${border}`, borderRadius:'14px',
+                        padding:'14px 16px', cursor:answered?'default':'pointer',
+                        display:'flex', alignItems:'center', gap:'12px', transition:'all 0.2s'
+                      }}>
+                        <div style={{width:'28px', height:'28px', borderRadius:'8px', background:`${border}33`, display:'flex', alignItems:'center', justifyContent:'center', fontFamily:'Fredoka,sans-serif', fontSize:'0.85rem', fontWeight:700, color, flexShrink:0}}>
+                          {answered?(isCorrect?'✅':isSelected?'❌':String.fromCharCode(65+i)):String.fromCharCode(65+i)}
+                        </div>
+                        <div style={{fontSize:'0.86rem', fontWeight:700, color, lineHeight:1.5}}>{opt}</div>
+                      </div>
+                    )
+                  })}
+                </div>
+
+                {answered && (
+                  <div>
+                    <div style={{background:'rgba(124,92,252,0.08)', border:'2px solid rgba(124,92,252,0.2)', borderRadius:'14px', padding:'14px', marginBottom:'12px'}}>
+                      <div style={{fontSize:'0.72rem', fontWeight:800, color:'#a48bff', marginBottom:'4px'}}>💡 Explication</div>
+                      <p style={{fontSize:'0.83rem', color:'#f0eeff', fontWeight:600, lineHeight:1.7, margin:0}}>{qcm.questions[currentQ].explication}</p>
+                    </div>
+                    <button onClick={suivant} style={{...btn, background:'linear-gradient(135deg,#7c5cfc,#ff6b9d)', color:'white', width:'100%', padding:'14px', fontSize:'0.95rem'}}>
+                      {currentQ < qcm.questions.length-1 ? 'Question suivante →' : 'Voir mes résultats 🏆'}
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        )}
+
+      </div>
+      <BottomNav active="app"/>
+      <style>{`
+        @keyframes bounce { 0%,80%,100%{transform:scale(0)} 40%{transform:scale(1)} }
+      `}</style>
+    </div>
+  )
+}
