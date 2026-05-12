@@ -109,9 +109,9 @@ export default function Landing() {
             {icon:'📸', bg:'rgba(255,159,28,0.2)', title:'Scanner de copie', desc:'Prends ta copie corrigée en photo. L\'IA lit les annotations du prof et génère un plan de rattrapage.', tag:'PREMIUM'},
             {icon:'👨‍👩‍👧', bg:'rgba(17,138,178,0.2)', title:'Dashboard parents', desc:'Alertes décrochage, rapport hebdo, messagerie — les parents voient tout en temps réel.', tag:'PREMIUM'},
             {icon:'🎮', bg:'rgba(255,107,157,0.2)', title:'Jeux éducatifs', desc:'Speed Quiz, Duel entre amis, Défi du jour — apprends en jouant et gagne des XP.', tag:'NOUVEAU'},
-            {icon:'📚', bg:'rgba(255,209,102,0.2)', title:'Annales IA', desc:'Exercices style brevet et bac générés et corrigés par l'IA avec explications détaillées.', tag:'PREMIUM'},
-            {icon:'🎤', bg:'rgba(124,92,252,0.2)', title:'Oral IA', desc:'Un examinateur IA t'interroge et te donne une note sur 20 avec justification complète.', tag:'PREMIUM'},
-            {icon:'📈', bg:'rgba(6,214,160,0.2)', title:'Prédiction de notes', desc:'L'IA prédit tes notes de fin d'année matière par matière avec un score de confiance.', tag:'PREMIUM'},
+            {icon:'📚', bg:'rgba(255,209,102,0.2)', title:'Annales IA', desc:'Exercices style brevet et bac generés et corrigés par l IA avec explications détaillées.', tag:'PREMIUM'},
+            {icon:'🎤', bg:'rgba(124,92,252,0.2)', title:'Oral IA', desc:'Un examinateur IA te pose des questions et te donne une note sur 20 avec justification.', tag:'PREMIUM'},
+            {icon:'📈', bg:'rgba(6,214,160,0.2)', title:'Prédiction de notes', desc:'L IA predit tes notes de fin d annee matiere par matiere avec un score de confiance.', tag:'PREMIUM'},
             {icon:'🃏', bg:'rgba(255,107,157,0.2)', title:'Flashcards IA', desc:'Cartes mémo avec répétition espacée. Mémorise formules, dates et définitions facilement.', tag:'GRATUIT'},
           ].map((f,i) => (
             <div key={i} style={{background:'#131120', border:'2px solid #2a2740', borderRadius:'18px', padding:'22px', transition:'all 0.3s'}}>
