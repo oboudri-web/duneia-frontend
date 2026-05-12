@@ -136,6 +136,38 @@ export default function Landing() {
             padding:'5px 14px', borderRadius:'100px', marginBottom:'16px'
           }}>💳 Tarifs simples</div>
           <h2 style={{fontFamily:'Fredoka,sans-serif', fontSize:'clamp(1.8rem,4vw,2.8rem)', fontWeight:700}}>
+
+      {/* MÉTHODE SOCRATIQUE */}
+      <div style={{padding:'60px 16px', maxWidth:'860px', margin:'0 auto'}}>
+        <div style={{background:'linear-gradient(135deg,#1a1040,#15102a)', border:'2px solid rgba(124,92,252,0.4)', borderRadius:'26px', padding:'48px 36px', textAlign:'center'}}>
+          <div style={{display:'inline-flex', alignItems:'center', gap:'8px', background:'rgba(6,214,160,0.1)', border:'1px solid rgba(6,214,160,0.3)', color:'#06d6a0', fontSize:'0.75rem', fontWeight:800, padding:'6px 16px', borderRadius:'100px', marginBottom:'20px', textTransform:'uppercase', letterSpacing:'0.08em'}}>
+            Notre philosophie
+          </div>
+          <h2 style={{fontFamily:'Fredoka,sans-serif', fontSize:'clamp(1.8rem,4vw,2.8rem)', fontWeight:700, marginBottom:'16px', lineHeight:1.2}}>
+            DuneIA ne donne jamais les reponses
+          </h2>
+          <p style={{fontSize:'1rem', color:'rgba(240,238,255,0.75)', lineHeight:1.8, maxWidth:'580px', margin:'0 auto 36px', fontWeight:600}}>
+            ChatGPT donne la reponse en 10 secondes. L eleve recopie et oublie le lendemain. DuneIA utilise la methode socratique — l IA pose des questions pour guider l eleve vers la comprehension. Il trouve la reponse lui-meme. Il s en souvient vraiment.
+          </p>
+          <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:'16px', marginBottom:'36px', textAlign:'left'}}>
+            <div style={{background:'rgba(239,71,111,0.06)', border:'2px solid rgba(239,71,111,0.2)', borderRadius:'16px', padding:'20px'}}>
+              <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'1rem', fontWeight:700, color:'#ef476f', marginBottom:'12px'}}>ChatGPT / Claude</div>
+              {['Donne la reponse directement','L eleve recopie sans comprendre','Aucune personnalisation scolaire','20-24 euros/mois pour un outil generaliste','Aucun suivi de progression'].map((t,i)=>(
+                <div key={i} style={{display:'flex', alignItems:'center', gap:'8px', marginBottom:'8px', fontSize:'0.82rem', fontWeight:600, color:'rgba(240,238,255,0.6)'}}><span style={{color:'#ef476f', flexShrink:0}}>X</span> {t}</div>
+              ))}
+            </div>
+            <div style={{background:'rgba(6,214,160,0.06)', border:'2px solid rgba(6,214,160,0.3)', borderRadius:'16px', padding:'20px'}}>
+              <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'1rem', fontWeight:700, color:'#06d6a0', marginBottom:'12px'}}>DuneIA</div>
+              {['Guide avec des questions, jamais de reponse','L eleve comprend et retient vraiment','Connecte a Pronote, adapte a sa classe','9,99 euros/mois pense pour l apprentissage','Suivi des progres et plan personnalise'].map((t,i)=>(
+                <div key={i} style={{display:'flex', alignItems:'center', gap:'8px', marginBottom:'8px', fontSize:'0.82rem', fontWeight:600, color:'rgba(240,238,255,0.8)'}}><span style={{color:'#06d6a0', flexShrink:0}}>OK</span> {t}</div>
+              ))}
+            </div>
+          </div>
+          <button onClick={()=>router.push('/auth')} style={{padding:'16px 40px', borderRadius:'14px', border:'none', background:'linear-gradient(135deg,#7c5cfc,#ff6b9d)', color:'white', fontFamily:'Nunito,sans-serif', fontWeight:800, fontSize:'1rem', cursor:'pointer', boxShadow:'0 6px 28px rgba(124,92,252,0.4)'}}>
+            Essayer le tuteur IA gratuitement
+          </button>
+        </div>
+      </div>
             Un seul prix, zéro surprise
           </h2>
         </div>
