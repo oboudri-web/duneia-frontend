@@ -200,8 +200,8 @@ export default function ParentsLanding() {
               {[
                 'Pose des questions, jamais de réponse',
                 "L'élève comprend et retient vraiment",
-                '9,99€/mois, pensé pour l'école',
-                'Connecté à Pronote, suivi continu',
+                '9,99 euros/mois, pense pour l ecole',
+                'Connecte a Pronote, suivi continu',
                 'Aligné sur les programmes officiels',
               ].map((t,i)=>(
                 <div key={i} style={{display:'flex', gap:'8px', marginBottom:'7px', fontSize:'0.8rem', fontWeight:600, color:'rgba(240,238,255,0.8)'}}>
