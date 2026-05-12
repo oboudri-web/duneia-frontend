@@ -79,7 +79,7 @@ REGLES:
       const d = await r.json()
       if(d.success) {
         const reponse = d.reponse
-        const noteMatch = reponse.match(/\[NOTE:\s*(\d+(?:\.\d+)?\/20)\s*-\s*(.+?)\]/s)
+        const noteMatch = reponse.match(/\[NOTE:\s*([\d.]+\/20)\s*-\s*([^\]]+)\]/)
         if(noteMatch) {
           setNote({note: noteMatch[1], justification: noteMatch[2]})
         }
