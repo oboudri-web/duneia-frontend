@@ -211,6 +211,27 @@ export default function Landing() {
       </div>
 
       {/* FOOTER */}
+      {/* FAQ */}
+      <div style={{padding:'60px 16px', maxWidth:'760px', margin:'0 auto'}}>
+        <div style={{textAlign:'center', marginBottom:'40px'}}>
+          <div style={{display:'inline-flex', alignItems:'center', gap:'6px', background:'rgba(124,92,252,0.18)', border:'1px solid rgba(124,92,252,0.35)', color:'#a48bff', fontSize:'0.72rem', fontWeight:800, textTransform:'uppercase', letterSpacing:'0.1em', padding:'5px 14px', borderRadius:'100px', marginBottom:'16px'}}>❓ FAQ</div>
+          <h2 style={{fontFamily:'Fredoka,sans-serif', fontSize:'clamp(1.6rem,3.5vw,2.4rem)', fontWeight:700}}>Questions fréquentes</h2>
+        </div>
+        {[
+          {q:'Pourquoi DuneIA plutôt que ChatGPT ou Claude ?', a:'ChatGPT et Claude sont des outils généralistes — ils donnent la réponse directement, ce qui empêche l'élève de vraiment apprendre. DuneIA utilise la méthode socratique : l'IA pose des questions pour guider l'élève vers la compréhension, sans jamais donner la solution toute faite. En plus, ChatGPT Plus coûte 20€/mois et Claude 24€/mois sans aucune personnalisation éducative. DuneIA est 2x moins cher avec une IA pensée pour les révisions, connectée à Pronote, adaptée au programme exact de l'élève.'},
+          {q:'Comment DuneIA se connecte à Pronote ?', a:'L'élève entre ses identifiants Pronote habituels. DuneIA récupère automatiquement notes, appréciations, devoirs et absences en 30 secondes. Les identifiants sont chiffrés en AES-256 et jamais stockés en clair. DuneIA n'est pas affilié à Index Éducation.'},
+          {q:'Est-ce que DuneIA fait les devoirs à la place de mon enfant ?', a:'Non. C'est même l'inverse. DuneIA guide l'élève avec des questions pour qu'il trouve lui-même les réponses. L'objectif est la compréhension durable, pas le remplissage de devoirs. Un élève qui utilise DuneIA comprend vraiment — il ne recopie pas.'},
+          {q:'Puis-je résilier à tout moment ?', a:'Oui, sans engagement et sans frais. Résiliation en un clic depuis votre espace profil. Remboursement possible sous 14 jours si vous n'êtes pas satisfait.'},
+          {q:'Mes données sont-elles sécurisées ?', a:'Oui. Toutes les données sont hébergées en France, conformes RGPD. Les identifiants Pronote sont chiffrés et jamais partagés. Aucun tracking publicitaire.'},
+          {q:'DuneIA fonctionne avec EcoleDirecte aussi ?', a:'Nous travaillons sur l'intégration EcoleDirecte. Pour l'instant DuneIA est connecté à Pronote (18 millions d'élèves en France). Si votre école utilise EcoleDirecte, vous pouvez saisir vos notes manuellement ou envoyer une photo de votre bulletin.'},
+        ].map((item, i) => (
+          <div key={i} style={{borderBottom:'1px solid #2a2740', padding:'20px 0'}}>
+            <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'1rem', fontWeight:700, marginBottom:'10px', color:'#f0eeff'}}>{item.q}</div>
+            <p style={{fontSize:'0.85rem', color:'#8e8cb0', fontWeight:600, lineHeight:1.8, margin:0}}>{item.a}</p>
+          </div>
+        ))}
+      </div>
+
       <footer style={{borderTop:'1px solid #2a2740', padding:'36px 24px', textAlign:'center', background:'#0a0914'}}>
         <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'1.2rem', fontWeight:700, color:'#ffd166', marginBottom:'14px'}}>🎓 DuneIA</div>
         <div style={{display:'flex', gap:'18px', justifyContent:'center', flexWrap:'wrap', marginBottom:'14px'}}>
