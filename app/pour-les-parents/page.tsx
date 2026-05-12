@@ -168,6 +168,57 @@ export default function ParentsLanding() {
         </div>
       </div>
 
+      {/* MÉTHODE SOCRATIQUE */}
+      <div style={{padding:'0 24px 70px', maxWidth:'860px', margin:'0 auto'}}>
+        <div style={{background:'linear-gradient(135deg,#1a1040,#15102a)', border:'2px solid rgba(124,92,252,0.4)', borderRadius:'26px', padding:'40px 32px'}}>
+          <div style={{display:'inline-flex', alignItems:'center', gap:'8px', background:'rgba(6,214,160,0.1)', border:'1px solid rgba(6,214,160,0.3)', color:'#06d6a0', fontSize:'0.75rem', fontWeight:800, padding:'6px 16px', borderRadius:'100px', marginBottom:'20px', textTransform:'uppercase', letterSpacing:'0.08em'}}>
+            🧠 Pourquoi pas ChatGPT ?
+          </div>
+          <h2 style={{fontFamily:'Fredoka,sans-serif', fontSize:'clamp(1.4rem,3vw,2rem)', fontWeight:700, marginBottom:'16px', lineHeight:1.2}}>
+            DuneIA ne donne jamais les réponses à votre enfant
+          </h2>
+          <p style={{fontSize:'0.9rem', color:'rgba(240,238,255,0.75)', lineHeight:1.8, marginBottom:'24px', fontWeight:600}}>
+            ChatGPT ou Claude donnent la solution en 10 secondes. Votre enfant recopie, rend son devoir, et oublie le lendemain. Rien n'a été appris.
+          </p>
+          <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:'16px', marginBottom:'24px'}}>
+            <div style={{background:'rgba(239,71,111,0.06)', border:'2px solid rgba(239,71,111,0.2)', borderRadius:'16px', padding:'18px'}}>
+              <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'0.95rem', fontWeight:700, color:'#ef476f', marginBottom:'12px'}}>❌ ChatGPT / Claude</div>
+              {[
+                'Donne la réponse directement',
+                "L'élève recopie sans comprendre",
+                '20-24€/mois, outil généraliste',
+                'Aucun suivi de progression',
+                'Non adapté au programme FR',
+              ].map((t,i)=>(
+                <div key={i} style={{display:'flex', gap:'8px', marginBottom:'7px', fontSize:'0.8rem', fontWeight:600, color:'rgba(240,238,255,0.6)'}}>
+                  <span style={{color:'#ef476f', flexShrink:0}}>✗</span>{t}
+                </div>
+              ))}
+            </div>
+            <div style={{background:'rgba(6,214,160,0.06)', border:'2px solid rgba(6,214,160,0.3)', borderRadius:'16px', padding:'18px'}}>
+              <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'0.95rem', fontWeight:700, color:'#06d6a0', marginBottom:'12px'}}>✅ DuneIA</div>
+              {[
+                'Pose des questions, jamais de réponse',
+                "L'élève comprend et retient vraiment",
+                '9,99€/mois, pensé pour l'école',
+                'Connecté à Pronote, suivi continu',
+                'Aligné sur les programmes officiels',
+              ].map((t,i)=>(
+                <div key={i} style={{display:'flex', gap:'8px', marginBottom:'7px', fontSize:'0.8rem', fontWeight:600, color:'rgba(240,238,255,0.8)'}}>
+                  <span style={{color:'#06d6a0', flexShrink:0}}>✓</span>{t}
+                </div>
+              ))}
+            </div>
+          </div>
+          <div style={{background:'rgba(255,209,102,0.08)', border:'2px solid rgba(255,209,102,0.2)', borderRadius:'14px', padding:'18px'}}>
+            <div style={{fontSize:'0.75rem', fontWeight:800, color:'#ffd166', marginBottom:'8px'}}>💡 La méthode socratique en pratique</div>
+            <p style={{fontSize:'0.84rem', color:'#f0eeff', fontWeight:600, lineHeight:1.8, margin:0}}>
+              Quand votre enfant bloque sur un exercice de maths, DuneIA ne lui donne pas la formule. Il lui demande : <em style={{color:'#ffd166'}}>"Qu'est-ce que tu sais déjà sur ce type de problème ?"</em> puis <em style={{color:'#ffd166'}}>"Quel théorème pourrait t'aider ici ?"</em>. L'élève réfléchit, cherche, et trouve lui-même. Il s'en souvient le jour du contrôle.
+            </p>
+          </div>
+        </div>
+      </div>
+
       {/* CTA FINAL */}
       <div style={{padding:'0 24px 80px', maxWidth:'680px', margin:'0 auto', textAlign:'center'}}>
         <div style={{background:'linear-gradient(135deg,#1a1040,#15102a)', border:'2px solid rgba(124,92,252,0.4)', borderRadius:'26px', padding:'52px 36px'}}>
