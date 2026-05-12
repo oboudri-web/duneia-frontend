@@ -8,7 +8,7 @@ const BACKEND = 'https://scolaria-backend-production.up.railway.app'
 export default function Revision() {
   const router = useRouter()
   const [user, setUser] = useState<any>(null)
-  const [mode, setMode] = useState<'menu'|'tuteur'|'qcm'>('menu')
+  const [mode, setMode] = useState<'menu'|'tuteur'|'qcm'|'flash'>('menu')
   
   // Tuteur
   const [messages, setMessages] = useState<any[]>([])
@@ -16,6 +16,16 @@ export default function Revision() {
   const [loading, setLoading] = useState(false)
   const [matiere, setMatiere] = useState('Mathématiques')
   const messagesEnd = useRef<any>(null)
+
+  // Flashcards
+  const [flashMatiere, setFlashMatiere] = useState('Mathématiques')
+  const [flashChapitre, setFlashChapitre] = useState('')
+  const [flashcards, setFlashcards] = useState<any>(null)
+  const [flashLoading, setFlashLoading] = useState(false)
+  const [currentCard, setCurrentCard] = useState(0)
+  const [flipped, setFlipped] = useState(false)
+  const [known, setKnown] = useState<number[]>([])
+  const [unknown, setUnknown] = useState<number[]>([])
 
   // QCM
   const [qcmMatiere, setQcmMatiere] = useState('Mathématiques')
@@ -113,7 +123,7 @@ export default function Revision() {
         <button onClick={()=>mode==='menu'?router.push('/app'):setMode('menu')} style={{...btn, background:'rgba(255,255,255,0.06)', color:'#8e8cb0'}}>← {mode==='menu'?'App':'Menu'}</button>
         <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'1.1rem', fontWeight:700, color:'#ffd166'}}>🎓 DuneIA</div>
         <div style={{marginLeft:'auto', fontSize:'0.78rem', fontWeight:800, color:'#a48bff'}}>
-          {mode==='tuteur'?'🧑‍🏫 Tuteur IA':mode==='qcm'?'❓ QCM':'📚 Révision'}
+          {mode==='tuteur'?'🧑‍🏫 Tuteur IA':mode==='qcm'?'❓ QCM':mode==='flash'?'🃏 Flashcards':'📚 Révision'}
         </div>
       </nav>
 
@@ -155,6 +165,20 @@ export default function Revision() {
                 <div style={{display:'flex', gap:'8px', flexWrap:'wrap'}}>
                   {['🎯 Ciblé sur tes lacunes','📊 Score instantané','💡 Explications détaillées'].map(t=>(
                     <span key={t} style={{background:'rgba(255,209,102,0.08)', border:'1px solid rgba(255,209,102,0.2)', borderRadius:'100px', padding:'3px 10px', fontSize:'0.7rem', fontWeight:800, color:'#ffd166'}}>{t}</span>
+                  ))}
+                </div>
+              </div>
+              <div onClick={()=>setMode('flash')} style={{background:'#131120', border:'2px solid rgba(6,214,160,0.3)', borderRadius:'20px', padding:'24px', cursor:'pointer', transition:'all 0.2s'}}>
+                <div style={{display:'flex', alignItems:'center', gap:'14px', marginBottom:'12px'}}>
+                  <div style={{width:'48px', height:'48px', borderRadius:'14px', background:'rgba(6,214,160,0.12)', display:'flex', alignItems:'center', justifyContent:'center', fontSize:'1.5rem'}}>🃏</div>
+                  <div>
+                    <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'1.1rem', fontWeight:700}}>Flashcards IA</div>
+                    <div style={{fontSize:'0.76rem', color:'#8e8cb0', fontWeight:600}}>Mémorise avec la répétition espacée</div>
+                  </div>
+                </div>
+                <div style={{display:'flex', gap:'8px', flexWrap:'wrap'}}>
+                  {['🔄 Recto-verso','📊 Suivi mémorisation','🎯 Ciblé sur tes lacunes'].map(t=>(
+                    <span key={t} style={{background:'rgba(6,214,160,0.08)', border:'1px solid rgba(6,214,160,0.2)', borderRadius:'100px', padding:'3px 10px', fontSize:'0.7rem', fontWeight:800, color:'#06d6a0'}}>{t}</span>
                   ))}
                 </div>
               </div>
@@ -317,6 +341,135 @@ export default function Revision() {
         )}
 
       </div>
+        {/* FLASHCARDS */}
+        {mode==='flash' && (
+          <div>
+            {!flashcards ? (
+              <div>
+                <div style={{marginBottom:'14px'}}>
+                  <label style={{fontSize:'0.78rem', fontWeight:800, color:'#8e8cb0', textTransform:'uppercase', letterSpacing:'0.06em', display:'block', marginBottom:'6px'}}>Matière</label>
+                  <select value={flashMatiere} onChange={e=>setFlashMatiere(e.target.value)} style={{width:'100%', background:'#1c1a2e', border:'2px solid #2a2740', borderRadius:'10px', padding:'10px', color:'#f0eeff', fontFamily:'Nunito,sans-serif', fontSize:'0.9rem', fontWeight:700, outline:'none'}}>
+                    {matieres.map(m=><option key={m} value={m}>{m}</option>)}
+                  </select>
+                </div>
+                <div style={{marginBottom:'20px'}}>
+                  <label style={{fontSize:'0.78rem', fontWeight:800, color:'#8e8cb0', textTransform:'uppercase', letterSpacing:'0.06em', display:'block', marginBottom:'6px'}}>Chapitre (optionnel)</label>
+                  <input value={flashChapitre} onChange={e=>setFlashChapitre(e.target.value)} placeholder="ex: La photosynthèse, Les équations..." style={{width:'100%', background:'#1c1a2e', border:'2px solid #2a2740', borderRadius:'10px', padding:'10px', color:'#f0eeff', fontFamily:'Nunito,sans-serif', fontSize:'0.9rem', fontWeight:600, outline:'none', boxSizing:'border-box' as any}}/>
+                </div>
+                <button onClick={async()=>{
+                  setFlashLoading(true)
+                  setFlashcards(null)
+                  setCurrentCard(0)
+                  setFlipped(false)
+                  setKnown([])
+                  setUnknown([])
+                  try {
+                    const token = localStorage.getItem('duneia_token')
+                    const r = await fetch(BACKEND+'/api/ai/flashcards', {
+                      method:'POST',
+                      headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},
+                      body: JSON.stringify({matiere:flashMatiere, classe:user?.classe, chapitre:flashChapitre, nbCartes:8})
+                    })
+                    const d = await r.json()
+                    if(d.success) setFlashcards(d.flashcards)
+                  } catch(e) { console.error(e) }
+                  finally { setFlashLoading(false) }
+                }} disabled={flashLoading} style={{...btn, background:'linear-gradient(135deg,#06d6a0,#00a8b5)', color:'white', width:'100%', padding:'14px', fontSize:'0.95rem', opacity:flashLoading?0.7:1}}>
+                  {flashLoading ? '⏳ Génération des flashcards...' : '🃏 Générer les flashcards'}
+                </button>
+              </div>
+            ) : known.length + unknown.length === flashcards.cartes.length ? (
+              <div style={{textAlign:'center', padding:'40px 20px'}}>
+                <div style={{fontSize:'3rem', marginBottom:'16px'}}>{known.length >= flashcards.cartes.length*0.7 ? '🏆' : '💪'}</div>
+                <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'1.6rem', fontWeight:700, marginBottom:'8px'}}>
+                  {known.length}/{flashcards.cartes.length} mémorisées
+                </div>
+                <div style={{fontSize:'0.9rem', color:'#8e8cb0', fontWeight:600, marginBottom:'24px'}}>
+                  {known.length >= flashcards.cartes.length*0.7 ? 'Excellent ! Tu maîtrises ce chapitre 🎉' : 'Continue à réviser les cartes ratées 📚'}
+                </div>
+                {unknown.length > 0 && (
+                  <div style={{background:'rgba(239,71,111,0.08)', border:'2px solid rgba(239,71,111,0.2)', borderRadius:'14px', padding:'16px', marginBottom:'20px', textAlign:'left'}}>
+                    <div style={{fontSize:'0.78rem', fontWeight:800, color:'#ef476f', marginBottom:'8px'}}>📌 À retravailler :</div>
+                    {unknown.map(i=>(
+                      <div key={i} style={{fontSize:'0.8rem', fontWeight:600, color:'#f0eeff', marginBottom:'4px', padding:'6px 10px', background:'rgba(255,255,255,0.03)', borderRadius:'8px'}}>{flashcards.cartes[i].recto}</div>
+                    ))}
+                  </div>
+                )}
+                <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:'10px'}}>
+                  <button onClick={()=>{setFlashcards(null);setKnown([]);setUnknown([])}} style={{...btn, background:'rgba(6,214,160,0.1)', color:'#06d6a0', border:'2px solid rgba(6,214,160,0.3)', padding:'12px'}}>
+                    🔄 Nouvelles cartes
+                  </button>
+                  <button onClick={()=>{
+                    const toReview = unknown
+                    setCurrentCard(0)
+                    setFlipped(false)
+                    setKnown([])
+                    setUnknown([])
+                    setFlashcards({...flashcards, cartes: toReview.map((i:number)=>flashcards.cartes[i])})
+                  }} style={{...btn, background:'linear-gradient(135deg,#7c5cfc,#ff6b9d)', color:'white', padding:'12px'}}>
+                    🔁 Retravailler les ratées
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div>
+                <div style={{display:'flex', alignItems:'center', justifyContent:'space-between', marginBottom:'16px'}}>
+                  <div style={{fontSize:'0.78rem', fontWeight:800, color:'#8e8cb0'}}>Carte {currentCard+1}/{flashcards.cartes.length}</div>
+                  <div style={{display:'flex', gap:'8px'}}>
+                    <span style={{fontSize:'0.72rem', fontWeight:800, color:'#06d6a0'}}>✅ {known.length}</span>
+                    <span style={{fontSize:'0.72rem', fontWeight:800, color:'#ef476f'}}>❌ {unknown.length}</span>
+                  </div>
+                </div>
+
+                <div style={{background:'rgba(255,255,255,0.04)', borderRadius:'6px', height:'4px', marginBottom:'20px', overflow:'hidden'}}>
+                  <div style={{height:'100%', background:'linear-gradient(135deg,#06d6a0,#00a8b5)', width:`${((known.length+unknown.length)/flashcards.cartes.length)*100}%`, transition:'width 0.3s'}}/>
+                </div>
+
+                <div onClick={()=>setFlipped(f=>!f)} style={{
+                  background:'#131120', border:`2px solid ${flipped?'rgba(6,214,160,0.4)':'#2a2740'}`,
+                  borderRadius:'22px', padding:'40px 24px', textAlign:'center', cursor:'pointer',
+                  minHeight:'200px', display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center',
+                  marginBottom:'16px', transition:'all 0.3s'
+                }}>
+                  {!flipped ? (
+                    <>
+                      <div style={{fontSize:'0.72rem', fontWeight:800, color:'#a48bff', textTransform:'uppercase', letterSpacing:'0.08em', marginBottom:'16px'}}>
+                        {flashcards.cartes[currentCard].type === 'formule' ? '🔢 Formule' : flashcards.cartes[currentCard].type === 'date' ? '📅 Date' : flashcards.cartes[currentCard].type === 'definition' ? '📖 Définition' : '💡 Concept'}
+                      </div>
+                      <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'1.2rem', fontWeight:700, lineHeight:1.5}}>{flashcards.cartes[currentCard].recto}</div>
+                      <div style={{fontSize:'0.75rem', color:'#8e8cb0', fontWeight:600, marginTop:'20px'}}>👆 Tape pour voir la réponse</div>
+                    </>
+                  ) : (
+                    <>
+                      <div style={{fontSize:'0.72rem', fontWeight:800, color:'#06d6a0', textTransform:'uppercase', letterSpacing:'0.08em', marginBottom:'16px'}}>✅ Réponse</div>
+                      <div style={{fontSize:'0.95rem', fontWeight:600, lineHeight:1.7, color:'#f0eeff'}}>{flashcards.cartes[currentCard].verso}</div>
+                    </>
+                  )}
+                </div>
+
+                {flipped && (
+                  <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:'10px'}}>
+                    <button onClick={()=>{
+                      setUnknown(u=>[...u, currentCard])
+                      setCurrentCard(c=>c+1)
+                      setFlipped(false)
+                    }} style={{...btn, background:'rgba(239,71,111,0.1)', color:'#ef476f', border:'2px solid rgba(239,71,111,0.3)', padding:'14px', fontSize:'0.9rem'}}>
+                      ❌ Je ne savais pas
+                    </button>
+                    <button onClick={()=>{
+                      setKnown(k=>[...k, currentCard])
+                      setCurrentCard(c=>c+1)
+                      setFlipped(false)
+                    }} style={{...btn, background:'rgba(6,214,160,0.1)', color:'#06d6a0', border:'2px solid rgba(6,214,160,0.3)', padding:'14px', fontSize:'0.9rem'}}>
+                      ✅ Je savais !
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        )}
+
       <BottomNav active="app"/>
       <style>{`
         @keyframes bounce { 0%,80%,100%{transform:scale(0)} 40%{transform:scale(1)} }
