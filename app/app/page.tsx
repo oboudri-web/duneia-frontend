@@ -479,10 +479,11 @@ Commence par un diagnostic en 2 phrases.`
 
         <div style={{display:'flex', gap:'5px', overflowX:'auto', marginBottom:'14px', paddingBottom:'4px'}}>
           {TABS.map(tab=>(
-            <button key={tab.id} onClick={()=>handleTab(tab)} style={{flexShrink:0, display:'flex', flexDirection:'column', alignItems:'center', gap:'2px', padding:'6px 8px', borderRadius:'10px', border:'none', cursor:'pointer', background:activeTab===tab.id?'#7c5cfc':'transparent', color:activeTab===tab.id?'white':'#8e8cb0', fontFamily:'Nunito,sans-serif', fontWeight:800, fontSize:'0.65rem', boxShadow:activeTab===tab.id?'0 4px 16px rgba(124,92,252,0.38)':'none', transition:'all 0.2s'}}>
+            <button key={tab.id} onClick={()=>handleTab(tab)} style={{flexShrink:0, display:'flex', flexDirection:'column', alignItems:'center', gap:'2px', padding:'6px 8px', borderRadius:'10px', border:'none', cursor:'pointer', background:activeTab===tab.id?'#7c5cfc':'transparent', color:tab.premium&&!isPremium()?'#4a4760':activeTab===tab.id?'white':'#8e8cb0', fontFamily:'Nunito,sans-serif', fontWeight:800, fontSize:'0.65rem', boxShadow:activeTab===tab.id?'0 4px 16px rgba(124,92,252,0.38)':'none', transition:'all 0.2s', opacity:tab.premium&&!isPremium()?0.5:1}}>
               <span style={{fontSize:'1rem'}}>{tab.icon}</span>
               {tab.label}
-              <span style={{fontSize:'0.55rem', opacity:0.7}}>{tab.sub}</span>
+              {!isPremium() && tab.sub && <span style={{fontSize:'0.55rem', opacity:0.7}}>{tab.sub}</span>}
+              {isPremium() && tab.premium && <span style={{fontSize:'0.55rem', color:'#06d6a0'}}>✓</span>}
             </button>
           ))}
         </div>
