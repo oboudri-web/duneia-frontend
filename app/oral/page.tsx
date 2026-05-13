@@ -222,7 +222,7 @@ REGLES:
                 <button
                   onClick={isListening?()=>{recognitionRef.current?.stop();setIsListening(false)}:startListening}
                   style={{
-                    width:'100%', padding:'14px', borderRadius:'12px', border:'none',
+                    width:'100%', padding:'14px', borderRadius:'12px',
                     background:isListening?'rgba(239,71,111,0.2)':'rgba(124,92,252,0.15)',
                     border:isListening?'2px solid #ef476f':'2px solid rgba(124,92,252,0.4)',
                     color:isListening?'#ef476f':'#a48bff',
