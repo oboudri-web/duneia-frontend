@@ -1,5 +1,5 @@
 'use client'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import BottomNav from '../../components/BottomNav'
 
@@ -14,6 +14,10 @@ export default function OralIA() {
   const [input, setInput] = useState('')
   const [loading, setLoading] = useState(false)
   const [started, setStarted] = useState(false)
+  const [isListening, setIsListening] = useState(false)
+  const [isSpeaking, setIsSpeaking] = useState(false)
+  const recognitionRef = useRef<any>(null)
+  const synthRef = useRef<any>(null)
   const [note, setNote] = useState<any>(null)
 
   const matieres = ['Histoire-Géo','Français','Philosophie','Anglais','Espagnol','SVT','Physique-Chimie','SES']
@@ -23,6 +27,37 @@ export default function OralIA() {
     if(!u) { router.push('/auth'); return }
     setUser(JSON.parse(u))
   }, [])
+
+  function speak(text: string) {
+    if(typeof window === 'undefined') return
+    const synth = window.speechSynthesis
+    synth.cancel()
+    const utt = new SpeechSynthesisUtterance(text)
+    utt.lang = 'fr-FR'
+    utt.rate = 0.9
+    utt.onstart = () => setIsSpeaking(true)
+    utt.onend = () => setIsSpeaking(false)
+    synth.speak(utt)
+  }
+
+  function startListening() {
+    if(typeof window === 'undefined') return
+    const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition
+    if(!SpeechRecognition) { alert('Reconnaissance vocale non supportée sur ce navigateur'); return }
+    const recognition = new SpeechRecognition()
+    recognition.lang = 'fr-FR'
+    recognition.continuous = false
+    recognition.interimResults = false
+    recognition.onstart = () => setIsListening(true)
+    recognition.onend = () => setIsListening(false)
+    recognition.onresult = (e: any) => {
+      const transcript = e.results[0][0].transcript
+      setInput(transcript)
+    }
+    recognition.onerror = () => setIsListening(false)
+    recognition.start()
+    recognitionRef.current = recognition
+  }
 
   async function commencer() {
     setStarted(true)
@@ -84,6 +119,7 @@ REGLES:
           setNote({note: noteMatch[1], justification: noteMatch[2]})
         }
         setMessages([...newMessages, {role:'assistant', content:reponse, isExaminateur:true}])
+        speak(reponse)
       }
     } catch(e) { console.error(e) }
     finally { setLoading(false) }
@@ -170,24 +206,44 @@ REGLES:
             </div>
 
             {!note && (
-              <div style={{display:'flex', gap:'10px'}}>
-                <input
-                  value={input}
-                  onChange={e=>setInput(e.target.value)}
-                  onKeyDown={e=>e.key==='Enter'&&repondre()}
-                  placeholder="Ta reponse..."
-                  style={{flex:1, background:'#1c1a2e', border:'2px solid #2a2740', borderRadius:'12px', padding:'12px', color:'#f0eeff', fontFamily:'Nunito,sans-serif', fontSize:'0.9rem', fontWeight:600, outline:'none'}}
-                />
-                <button onClick={repondre} disabled={loading||!input.trim()} style={{padding:'12px 20px', borderRadius:'12px', border:'none', background:'linear-gradient(135deg,#7c5cfc,#ff6b9d)', color:'white', fontFamily:'Nunito,sans-serif', fontWeight:800, fontSize:'0.88rem', cursor:'pointer', opacity:loading||!input.trim()?0.5:1}}>
-                  Envoyer
+              <div style={{display:'flex', flexDirection:'column', gap:'10px'}}>
+                <div style={{display:'flex', gap:'10px'}}>
+                  <input
+                    value={input}
+                    onChange={e=>setInput(e.target.value)}
+                    onKeyDown={e=>e.key==='Enter'&&repondre()}
+                    placeholder="Ta réponse (ou utilise le micro)..."
+                    style={{flex:1, background:'#1c1a2e', border:'2px solid #2a2740', borderRadius:'12px', padding:'12px', color:'#f0eeff', fontFamily:'Nunito,sans-serif', fontSize:'0.9rem', fontWeight:600, outline:'none'}}
+                  />
+                  <button onClick={repondre} disabled={loading||!input.trim()} style={{padding:'12px 20px', borderRadius:'12px', border:'none', background:'linear-gradient(135deg,#7c5cfc,#ff6b9d)', color:'white', fontFamily:'Nunito,sans-serif', fontWeight:800, fontSize:'0.88rem', cursor:'pointer', opacity:loading||!input.trim()?0.5:1}}>
+                    →
+                  </button>
+                </div>
+                <button
+                  onClick={isListening?()=>{recognitionRef.current?.stop();setIsListening(false)}:startListening}
+                  style={{
+                    width:'100%', padding:'14px', borderRadius:'12px', border:'none',
+                    background:isListening?'rgba(239,71,111,0.2)':'rgba(124,92,252,0.15)',
+                    border:isListening?'2px solid #ef476f':'2px solid rgba(124,92,252,0.4)',
+                    color:isListening?'#ef476f':'#a48bff',
+                    fontFamily:'Nunito,sans-serif', fontWeight:800, fontSize:'0.92rem', cursor:'pointer',
+                    display:'flex', alignItems:'center', justifyContent:'center', gap:'8px'
+                  }}>
+                  {isListening ? '⏹ Arrêter' : '🎤 Parler'}
+                  {isListening && <span style={{width:'8px',height:'8px',borderRadius:'50%',background:'#ef476f',animation:'pulse 1s infinite'}}/>}
                 </button>
+                {isSpeaking && (
+                  <div style={{textAlign:'center', fontSize:'0.78rem', color:'#a48bff', fontWeight:700}}>
+                    🔊 L'examinateur parle...
+                  </div>
+                )}
               </div>
             )}
           </div>
         )}
       </div>
       <BottomNav active="app"/>
-      <style>{`@keyframes bounce { 0%,80%,100%{transform:scale(0)} 40%{transform:scale(1)} }`}</style>
+      <style>{`@keyframes bounce { 0%,80%,100%{transform:scale(0)} 40%{transform:scale(1)} } @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }`}</style>
     </div>
   )
 }
