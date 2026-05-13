@@ -116,6 +116,33 @@ export default function App() {
     setUser(parsed)
     setXp(parsed.xp || 100)
     if(parsed.classe) setClasse(parsed.classe)
+
+    // Charge les bulletins depuis Supabase si pas en localStorage
+    const token = localStorage.getItem('duneia_token')
+    const savedNotes = localStorage.getItem('duneia_notes')
+    const hasNotes = savedNotes && Object.values(JSON.parse(savedNotes)).some((arr:any)=>arr.length>0)
+    if(!hasNotes && token) {
+      fetch('https://scolaria-backend-production.up.railway.app/api/pronote/bulletins', {
+        headers: {'Authorization': 'Bearer '+token}
+      }).then(r=>r.json()).then(bulletins=>{
+        if(Array.isArray(bulletins) && bulletins.length > 0) {
+          const notesObj: any = {'0':[],'1':[],'2':[]}
+          bulletins.forEach((b:any) => {
+            const triIdx = b.trimestre?.includes('1')?0:b.trimestre?.includes('2')?1:2
+            const notes = (b.appreciations||[]).map((a:any)=>({
+              matiere: a.matiere||'',
+              note: a.moyenne_eleve?.toString()||'',
+              appreciation: a.appreciation||''
+            }))
+            notesObj[triIdx] = notes
+          })
+          localStorage.setItem('duneia_notes', JSON.stringify(notesObj))
+          localStorage.setItem('duneia_pronote_connected', '1')
+          setNotes(notesObj)
+        }
+      }).catch(e=>console.error('Bulletins load error:', e))
+    }
+
     const saved = localStorage.getItem('duneia_notes')
     if(saved) setNotes(JSON.parse(saved))
     const savedChap = localStorage.getItem('duneia_chapitres')
