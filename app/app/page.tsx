@@ -16,6 +16,8 @@ const TABS = [
   {id:7, icon:'🏆', label:'Amis', sub:'XP'},
   {id:8, icon:'📸', label:'Copie', sub:'⭐', premium:true},
   {id:9, icon:'🧬', label:'ADN', sub:'⭐', premium:true},
+  {id:10, icon:'📚', label:'Révision', sub:'', premium:false},
+  {id:11, icon:'🎮', label:'Jeux', sub:'', premium:false},
 ]
 
 const MATIERES = ['Mathématiques','Français','Histoire-Géo','Physique-Chimie','SVT','Anglais','Espagnol','Philosophie','SES','NSI','Autre']
