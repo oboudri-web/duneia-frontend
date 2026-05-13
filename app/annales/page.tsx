@@ -58,7 +58,12 @@ export default function Annales() {
             <div style={{textAlign:'center', marginBottom:'28px'}}>
               <div style={{fontSize:'2.5rem', marginBottom:'12px'}}>📚</div>
               <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'1.3rem', fontWeight:700, marginBottom:'8px'}}>Annales IA</div>
-              <p style={{fontSize:'0.84rem', color:'#8e8cb0', fontWeight:600}}>Exercices style brevet/bac générés et corrigés par l'IA</p>
+              <p style={{fontSize:'0.84rem', color:'#8e8cb0', fontWeight:600}}>
+                {user?.classe?.includes('3') ? 'Exercices style Brevet des colleges' :
+                 user?.classe?.includes('Terminale') ? 'Exercices style Baccalaureat' :
+                 user?.classe?.includes('ère') || user?.classe?.includes('Première') ? 'Exercices style Bac 1ere' :
+                 'Exercices style controle — programme officiel'}
+              </p>
             </div>
 
             <div style={{display:'flex', flexDirection:'column', gap:'14px', marginBottom:'20px'}}>
