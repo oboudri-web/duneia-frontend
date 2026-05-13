@@ -156,12 +156,12 @@ export default function App() {
   function isPremium() { return user?.plan_active && ['premium','famille'].includes(user?.plan) }
 
   function handleTab(tab:any) {
-    if(tab.id === 10) { router.push('/revision'); return }
-    if(tab.id === 11) { router.push('/jeux'); return }
-    if(tab.id === 4) { router.push('/annales'); return }
-    if(tab.id === 5) { router.push('/prediction'); return }
-    if(tab.id === 6) { router.push('/oral'); return }
-    if(tab.id === 9) { router.push('/adn'); return }
+    if(tab.id === 10) { window.location.href='/revision'; return }
+    if(tab.id === 11) { window.location.href='/jeux'; return }
+    if(tab.id === 4) { window.location.href='/annales'; return }
+    if(tab.id === 5) { window.location.href='/prediction'; return }
+    if(tab.id === 6) { window.location.href='/oral'; return }
+    if(tab.id === 9) { window.location.href='/adn'; return }
     if(tab.premium && !isPremium()) { setUpgradeFeature(tab.label); setShowUpgrade(true); return }
     setActiveTab(tab.id)
     setImportMode('none')
