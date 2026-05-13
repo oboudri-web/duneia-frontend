@@ -46,8 +46,9 @@ export default function Onboarding() {
       setSynced(true)
       setSyncMsg((d.data?.notes?.length || 0) + ' notes récupérées — ' + (d.data?.trimestre || ''))
       // Store Pronote data in localStorage for app
-      if(d.data?.matieres || d.data?.notes) {
+      if(d.data?.notes || d.data?.appreciations) {
         const triIdx = d.data.trimestre?.includes('1')?0:d.data.trimestre?.includes('2')?1:2
+        // Utilise les moyennes par matière avec appréciations
         const notes = d.data.appreciations?.map((a:any)=>({
           matiere: a.matiere || '',
           note: a.moyenne_eleve?.toString() || '',
@@ -57,6 +58,12 @@ export default function Onboarding() {
         existing[triIdx] = notes
         localStorage.setItem('duneia_notes', JSON.stringify(existing))
         localStorage.setItem('duneia_pronote_connected', '1')
+        // Sauvegarde aussi les notes brutes pour l'analyse
+        localStorage.setItem('duneia_notes_brutes', JSON.stringify(d.data.notes || []))
+        localStorage.setItem('duneia_eleve_nom', d.data.eleve || '')
+        localStorage.setItem('duneia_trimestre', d.data.trimestre || '')
+        // Auto-redirect to analyse after 2 seconds
+        setTimeout(()=>router.push('/analyse'), 2000)
       }
     } catch(e:any) {
       alert('Erreur Pronote : ' + e.message)
