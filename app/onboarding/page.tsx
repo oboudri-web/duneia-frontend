@@ -111,6 +111,22 @@ export default function Onboarding() {
             <p style={{fontSize:'0.88rem', color:'#8e8cb0', fontWeight:600, lineHeight:1.7, textAlign:'center', marginBottom:'24px'}}>
               DuneIA récupère tes notes et appréciations automatiquement. Tes identifiants sont chiffrés.
             </p>
+            {/* Choix plateforme */}
+            <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:'10px', marginBottom:'14px'}}>
+              {['Pronote', 'EcoleDirecte'].map(p=>(
+                <button key={p} onClick={()=>setPlatform(p)} style={{
+                  padding:'14px', borderRadius:'12px', cursor:'pointer',
+                  fontFamily:'Nunito,sans-serif', fontWeight:800, fontSize:'0.92rem',
+                  background: platform===p?'rgba(124,92,252,0.15)':'transparent',
+                  border: `2px solid ${platform===p?'rgba(124,92,252,0.5)':'#2a2740'}`,
+                  color: platform===p?'#a48bff':'#8e8cb0',
+                  display:'flex', alignItems:'center', justifyContent:'center', gap:'8px'
+                }}>
+                  {p==='Pronote'?'📊':'🏫'} {p}
+                </button>
+              ))}
+            </div>
+
             <div style={{background:'linear-gradient(135deg,rgba(6,214,160,0.1),rgba(124,92,252,0.07))', border:'2px solid rgba(6,214,160,0.28)', borderRadius:'16px', padding:'18px', marginBottom:'14px'}}>
               <label style={lbl}>URL Pronote de ton établissement</label>
               {platform === 'Pronote' && (
