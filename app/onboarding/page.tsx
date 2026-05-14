@@ -15,6 +15,7 @@ const OBJECTIFS = [
 export default function Onboarding() {
   const router = useRouter()
   const [step, setStep] = useState(0)
+  const [platform, setPlatform] = useState('Pronote')
   const [pronoteUrl, setPronoteUrl] = useState('')
   const [pronoteUser, setPronoteUser] = useState('')
   const [pronotePass, setPronotePass] = useState('')
@@ -111,7 +112,9 @@ export default function Onboarding() {
             </p>
             <div style={{background:'linear-gradient(135deg,rgba(6,214,160,0.1),rgba(124,92,252,0.07))', border:'2px solid rgba(6,214,160,0.28)', borderRadius:'16px', padding:'18px', marginBottom:'14px'}}>
               <label style={lbl}>URL Pronote de ton établissement</label>
-              <input style={inp} placeholder="https://0XXXXXXX.index-education.net/pronote/" value={pronoteUrl} onChange={e=>setPronoteUrl(e.target.value)}/>
+              {platform === 'Pronote' && (
+                <input style={inp} placeholder="https://0XXXXXXX.index-education.net/pronote/" value={pronoteUrl} onChange={e=>setPronoteUrl(e.target.value)}/>
+              )}
               <label style={lbl}>Identifiant</label>
               <input style={inp} placeholder="Ton identifiant Pronote" value={pronoteUser} onChange={e=>setPronoteUser(e.target.value)}/>
               <label style={lbl}>Mot de passe</label>
