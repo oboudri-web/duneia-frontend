@@ -2,6 +2,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import BottomNav from '../../components/BottomNav'
+import LimiteModal from '../../components/LimiteModal'
 
 const BACKEND = 'https://scolaria-backend-production.up.railway.app'
 
@@ -16,6 +17,7 @@ export default function Revision() {
   const [loading, setLoading] = useState(false)
   const [matiere, setMatiere] = useState('Mathématiques')
   const messagesEnd = useRef<any>(null)
+  const [limiteType, setLimiteType] = useState<string|null>(null)
 
   // Résumé
   const [resumeTexte, setResumeTexte] = useState('')
@@ -600,6 +602,7 @@ export default function Revision() {
           </div>
         )}
 
+      {limiteType && <LimiteModal type={limiteType} onClose={()=>setLimiteType(null)}/>}
       <BottomNav active="app"/>
       <style>{`
         @keyframes bounce { 0%,80%,100%{transform:scale(0)} 40%{transform:scale(1)} }
