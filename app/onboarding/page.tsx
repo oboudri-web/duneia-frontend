@@ -68,7 +68,7 @@ export default function Onboarding() {
         setTimeout(()=>router.push('/analyse'), 2000)
       }
     } catch(e:any) {
-      alert('Erreur Pronote : ' + e.message)
+      alert(`Erreur ${platform} : ` + e.message)
     } finally { setSyncing(false) }
   }
 
@@ -128,7 +128,7 @@ export default function Onboarding() {
             </div>
 
             <div style={{background:'linear-gradient(135deg,rgba(6,214,160,0.1),rgba(124,92,252,0.07))', border:'2px solid rgba(6,214,160,0.28)', borderRadius:'16px', padding:'18px', marginBottom:'14px'}}>
-              <label style={lbl}>URL Pronote de ton établissement</label>
+              {platform === 'Pronote' && <label style={lbl}>URL Pronote de ton établissement</label>}
               {platform === 'Pronote' && (
                 <input style={inp} placeholder="https://0XXXXXXX.index-education.net/pronote/" value={pronoteUrl} onChange={e=>setPronoteUrl(e.target.value)}/>
               )}
@@ -140,7 +140,7 @@ export default function Onboarding() {
             {synced && (
               <div style={{background:'rgba(6,214,160,0.08)', border:'2px solid rgba(6,214,160,0.25)', borderRadius:'12px', padding:'12px', textAlign:'center', marginBottom:'12px'}}>
                 <div style={{fontSize:'1.4rem', marginBottom:'5px'}}>✅</div>
-                <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'0.95rem', fontWeight:700, color:'#06d6a0'}}>Pronote connecté !</div>
+                <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'0.95rem', fontWeight:700, color:'#06d6a0'}}>{platform} connecté !</div>
                 <div style={{fontSize:'0.78rem', color:'#8e8cb0', fontWeight:600, marginTop:'3px'}}>{syncMsg}</div>
               </div>
             )}
@@ -149,7 +149,7 @@ export default function Onboarding() {
               disabled={syncing}
               style={{...btn, background: synced?'linear-gradient(135deg,#06d6a0,#00a8b5)':'linear-gradient(135deg,#7c5cfc,#ff6b9d)', opacity:syncing?0.7:1}}
             >
-              {syncing ? '⏳ Connexion...' : synced ? 'Continuer →' : '🔗 Connecter Pronote'}
+              {syncing ? '⏳ Connexion...' : synced ? 'Continuer →' : `🔗 Connecter ${platform}`}
             </button>
             <button onClick={()=>setStep(2)} style={skip}>Passer cette étape</button>
           </div>
@@ -228,8 +228,8 @@ export default function Onboarding() {
             </div>
             <div style={{background: plan==='premium' ? 'linear-gradient(135deg,rgba(124,92,252,0.1),rgba(255,107,157,0.06))' : 'rgba(255,255,255,0.03)', border:`2px solid ${plan==='premium' ? 'rgba(124,92,252,0.28)' : '#2a2740'}`, borderRadius:'13px', padding:'13px', marginBottom:'12px', fontSize:'0.8rem', fontWeight:600, color:'#8e8cb0', lineHeight:1.6}}>
               {plan === 'premium'
-                ? '✅ Sync Pronote illimitée · Plan IA 3 semaines · Tuteur IA illimité · Annales · Oral IA · ADN scolaire · Dashboard parents · Sans engagement'
-                : '✅ Sync Pronote (1 trimestre) · Plan IA 1 semaine · 5 questions/jour · 3 imports cours'}
+                ? `✅ Sync ${platform} illimitée · Plan IA 3 semaines · Tuteur IA illimité · Annales · Oral IA · ADN scolaire · Dashboard parents · Sans engagement`
+                : `✅ Sync ${platform} (1 trimestre) · Plan IA 1 semaine · 5 questions/jour · 3 imports cours`}
             </div>
             <button
               onClick={()=> plan==='premium' ? router.push('/paiement') : setStep(4)}
@@ -246,7 +246,7 @@ export default function Onboarding() {
             <div style={{fontSize:'5rem', marginBottom:'16px'}}>🎮</div>
             <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'1.7rem', fontWeight:700, marginBottom:'9px'}}>C'est parti !</div>
             <p style={{fontSize:'0.88rem', color:'#8e8cb0', fontWeight:600, lineHeight:1.7, marginBottom:'24px'}}>
-              Ton espace est prêt. DuneIA va analyser ton Pronote !
+              {`Ton espace est prêt. DuneIA va analyser ton ${platform} !`}
             </p>
             <div style={{background:'#131120', border:'2px solid #2a2740', borderRadius:'18px', padding:'22px', marginBottom:'14px'}}>
               <div style={{fontSize:'1.5rem', marginBottom:'7px'}}>🏆</div>
