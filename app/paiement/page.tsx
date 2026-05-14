@@ -126,9 +126,9 @@ export default function Paiement() {
             <div style={{position:'relative'}}>
               <div onClick={()=>setSelectedPlan('annuel')} style={{
                 padding:'16px', borderRadius:'16px', cursor:'pointer', textAlign:'center',
-                border:selectedPlan==='annuel'?'2px solid rgba(255,209,102,0.6)':'2px solid rgba(255,209,102,0.3)',
-                background:selectedPlan==='annuel'?'rgba(255,209,102,0.12)':'rgba(255,209,102,0.05)',
-                transition:'all 0.2s'
+                padding:'16px', borderRadius:'16px', cursor:'pointer', textAlign:'center',
+                border:'2px solid rgba(255,209,102,0.4)',
+                background:'rgba(255,209,102,0.08)',
               }}>
                 <div style={{position:'absolute', top:'-11px', left:'50%', transform:'translateX(-50%)', background:'linear-gradient(135deg,#ffd166,#ff9f1c)', borderRadius:'100px', padding:'3px 14px', fontSize:'0.7rem', fontWeight:900, color:'#0a0914', whiteSpace:'nowrap'}}>🔥 2 MOIS OFFERTS</div>
                 <div style={{fontSize:'1.6rem', marginBottom:'6px'}}>🔥</div>
