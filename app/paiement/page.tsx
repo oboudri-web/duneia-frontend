@@ -37,6 +37,24 @@ export default function Paiement() {
   }
 
   const plans = {
+    annuel: {
+      icon: '🔥',
+      name: 'Premium Annuel',
+      price: '79€',
+      period: '/an',
+      color: '#ffd166',
+      border: 'rgba(255,209,102,0.5)',
+      bg: 'linear-gradient(135deg,rgba(255,209,102,0.15),rgba(255,159,28,0.08))',
+      badge: '2 MOIS OFFERTS',
+      features: [
+        'Tout le plan Premium inclus',
+        '6,58€/mois seulement',
+        'Economise 41€ vs mensuel',
+        'Accès 12 mois sans interruption',
+        'Badge exclusif annuel',
+      ],
+      mollie_id: 'annuel'
+    },
     premium: {
       icon: '⭐',
       name: 'Premium',

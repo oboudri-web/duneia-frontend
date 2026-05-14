@@ -156,6 +156,7 @@ export default function App() {
   function isPremium() { return user?.plan_active && ['premium','famille'].includes(user?.plan) }
 
   function handleTab(tab:any) {
+    if(tab.id === 7) { window.location.href='/classement'; return }
     if(tab.id === 8) { window.location.href='/copie'; return }
     if(tab.id === 10) { window.location.href='/revision'; return }
     if(tab.id === 11) { window.location.href='/jeux'; return }
