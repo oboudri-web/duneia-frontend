@@ -22,7 +22,7 @@ export default function LimiteModal({ type, onClose }: { type: string, onClose: 
         <p style={{fontSize:'0.86rem', color:'#8e8cb0', fontWeight:600, lineHeight:1.7, marginBottom:'24px'}}>{msg.desc}<br/>Reviens demain ou passe Premium pour continuer.</p>
         
         <div style={{background:'rgba(255,209,102,0.08)', border:'2px solid rgba(255,209,102,0.2)', borderRadius:'14px', padding:'16px', marginBottom:'20px'}}>
-          <div style={{fontSize:'0.72rem', fontWeight:800, color:'#ffd166', marginBottom:'8px'}}>⭐ PREMIUM — 9,99€/mois</div>
+          <div style={{fontSize:'0.72rem', fontWeight:800, color:'#ffd166', marginBottom:'8px'}}>🔥 ANNUEL 79€/an · ⭐ PREMIUM 9,99€/mois</div>
           {['QCM illimités','Tuteur IA illimité','Flashcards illimitées','Speed Quiz illimité','Annales IA','Oral IA','Prédiction notes','ADN Scolaire'].map((f,i)=>(
             <div key={i} style={{fontSize:'0.75rem', fontWeight:600, color:'#f0eeff', textAlign:'left', marginBottom:'3px'}}>✓ {f}</div>
           ))}

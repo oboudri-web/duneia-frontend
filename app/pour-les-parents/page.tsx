@@ -14,6 +14,7 @@ export default function ParentsLanding() {
     { item: 'Cours particulier', prix: '40€/h', duneia: false },
     { item: 'Soutien scolaire', prix: '25€/h', duneia: false },
     { item: 'Plateforme concurrente', prix: '30€/mois', duneia: false },
+    { item: 'DuneIA Annuel', prix: '79€/an (6,58€/mois)', duneia: true },
     { item: 'DuneIA Premium', prix: '9,99€/mois', duneia: true },
   ]
 
@@ -200,7 +201,7 @@ export default function ParentsLanding() {
               {[
                 'Pose des questions, jamais de réponse',
                 "L'élève comprend et retient vraiment",
-                '9,99 euros/mois, pense pour l ecole',
+                'A partir de 6,58 euros/mois, pense pour l ecole',
                 'Connecte a Pronote, suivi continu',
                 'Aligné sur les programmes officiels',
               ].map((t,i)=>(
@@ -226,12 +227,12 @@ export default function ParentsLanding() {
           <h2 style={{fontFamily:'Fredoka,sans-serif', fontSize:'clamp(1.6rem,3.5vw,2.4rem)', fontWeight:700, marginBottom:'13px', lineHeight:1.2}}>Offrez le meilleur outil scolaire à votre enfant</h2>
           <p style={{fontSize:'0.9rem', color:'#8e8cb0', fontWeight:600, lineHeight:1.7, marginBottom:'28px', maxWidth:'420px', marginLeft:'auto', marginRight:'auto'}}>Moins cher qu'une heure de cours particulier. Disponible 24h/24. Sans engagement.</p>
           <button onClick={()=>router.push('/paiement')} style={{padding:'16px 40px', borderRadius:'14px', border:'none', background:'linear-gradient(135deg,#7c5cfc,#ff6b9d)', color:'white', fontFamily:'Nunito,sans-serif', fontWeight:800, fontSize:'1.05rem', cursor:'pointer', boxShadow:'0 6px 28px rgba(124,92,252,0.4)', marginBottom:'14px', display:'block', width:'100%'}}>
-            🎁 Offrir DuneIA — 9,99€/mois
+            🎁 Offrir DuneIA — à partir de 6,58€/mois
           </button>
           <button onClick={()=>router.push('/auth')} style={{padding:'12px 40px', borderRadius:'14px', border:'2px solid #2a2740', background:'transparent', color:'#8e8cb0', fontFamily:'Nunito,sans-serif', fontWeight:800, fontSize:'0.92rem', cursor:'pointer', width:'100%'}}>
             Essayer gratuitement d'abord
           </button>
-          <p style={{fontSize:'0.76rem', color:'#8e8cb0', fontWeight:700, marginTop:'14px'}}>✅ Gratuit · ⭐ Premium 9,99€/mois · 👨‍👩‍👧 Famille 14,99€/mois · ❌ Sans engagement</p>
+          <p style={{fontSize:'0.76rem', color:'#8e8cb0', fontWeight:700, marginTop:'14px'}}>✅ Gratuit · 🔥 Annuel 79€/an · ⭐ Premium 9,99€/mois · 👨‍👩‍👧 Famille 14,99€/mois · ❌ Sans engagement</p>
         </div>
       </div>
 

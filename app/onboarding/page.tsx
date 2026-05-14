@@ -208,6 +208,7 @@ export default function Onboarding() {
             <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:'9px', marginBottom:'12px'}}>
               {[
                 {p:'free', ic:'🆓', name:'Gratuit', price:'0€/mois', color:'#f0eeff'},
+                {p:'annuel', ic:'🔥', name:'Annuel', price:'79€/an', color:'#ffd166'},
                 {p:'premium', ic:'⭐', name:'Premium', price:'9,99€/mois', color:'#a48bff'},
               ].map(({p,ic,name,price,color}) => (
                 <div
