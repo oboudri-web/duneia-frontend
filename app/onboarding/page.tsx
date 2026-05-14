@@ -92,7 +92,7 @@ export default function Onboarding() {
             <div style={{fontSize:'3.8rem', marginBottom:'18px'}}>🎉</div>
             <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'1.7rem', fontWeight:700, marginBottom:'9px'}}>Bienvenue sur DuneIA !</div>
             <p style={{fontSize:'0.88rem', color:'#8e8cb0', fontWeight:600, lineHeight:1.7, marginBottom:'24px'}}>
-              Connecte ton Pronote et DuneIA analyse tout automatiquement. Moins de 2 minutes !
+              Connecte ton {platform} et DuneIA analyse tout automatiquement. Moins de 2 minutes !
             </p>
             <div style={{background:'linear-gradient(135deg,rgba(255,209,102,0.1),rgba(124,92,252,0.07))', border:'2px solid rgba(255,209,102,0.22)', borderRadius:'15px', padding:'18px', marginBottom:'14px'}}>
               <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'2.8rem', fontWeight:700, color:'#ffd166'}}>+100 XP</div>
@@ -106,7 +106,7 @@ export default function Onboarding() {
         {step === 1 && (
           <div>
             <div style={{fontSize:'3.8rem', textAlign:'center', marginBottom:'18px'}}>🔗</div>
-            <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'1.7rem', fontWeight:700, textAlign:'center', marginBottom:'9px'}}>Connecte Pronote</div>
+            <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'1.7rem', fontWeight:700, textAlign:'center', marginBottom:'9px'}}>Connecte {platform}</div>
             <p style={{fontSize:'0.88rem', color:'#8e8cb0', fontWeight:600, lineHeight:1.7, textAlign:'center', marginBottom:'24px'}}>
               DuneIA récupère tes notes et appréciations automatiquement. Tes identifiants sont chiffrés.
             </p>
@@ -116,9 +116,9 @@ export default function Onboarding() {
                 <input style={inp} placeholder="https://0XXXXXXX.index-education.net/pronote/" value={pronoteUrl} onChange={e=>setPronoteUrl(e.target.value)}/>
               )}
               <label style={lbl}>Identifiant</label>
-              <input style={inp} placeholder="Ton identifiant Pronote" value={pronoteUser} onChange={e=>setPronoteUser(e.target.value)}/>
+              <input style={inp} placeholder={`Ton identifiant ${platform}`} value={pronoteUser} onChange={e=>setPronoteUser(e.target.value)}/>
               <label style={lbl}>Mot de passe</label>
-              <input style={{...inp, marginBottom:0}} type="password" placeholder="Ton mot de passe Pronote" value={pronotePass} onChange={e=>setPronotePass(e.target.value)}/>
+              <input style={{...inp, marginBottom:0}} type="password" placeholder={`Ton mot de passe ${platform}`} value={pronotePass} onChange={e=>setPronotePass(e.target.value)}/>
             </div>
             {synced && (
               <div style={{background:'rgba(6,214,160,0.08)', border:'2px solid rgba(6,214,160,0.25)', borderRadius:'12px', padding:'12px', textAlign:'center', marginBottom:'12px'}}>
