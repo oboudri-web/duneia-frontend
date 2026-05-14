@@ -122,9 +122,8 @@ export default function Paiement() {
           </div>
 
           {/* Plan selector */}
-          <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:'10px', marginBottom:'20px'}}>
-            {/* Plan annuel en premier */}
-            <div style={{gridColumn:'1/-1', position:'relative'}}>
+          <div style={{display:'flex', flexDirection:'column', gap:'10px', marginBottom:'20px'}}>
+            <div style={{position:'relative'}}>
               <div onClick={()=>setSelectedPlan('annuel')} style={{
                 padding:'16px', borderRadius:'16px', cursor:'pointer', textAlign:'center',
                 border:selectedPlan==='annuel'?'2px solid rgba(255,209,102,0.6)':'2px solid rgba(255,209,102,0.3)',
@@ -140,6 +139,7 @@ export default function Paiement() {
                 <div style={{fontSize:'0.72rem', color:'#8e8cb0', fontWeight:700, marginTop:'4px'}}>6,58€/mois · économise 41€</div>
               </div>
             </div>
+            <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:'10px'}}>
             {(['premium','famille'] as const).map(p=>(
               <div key={p} onClick={()=>setSelectedPlan(p)} style={{
                 padding:'16px', borderRadius:'16px', cursor:'pointer', textAlign:'center',
@@ -154,6 +154,7 @@ export default function Paiement() {
                 </div>
               </div>
             ))}
+            </div>
           </div>
 
           {/* Features */}
