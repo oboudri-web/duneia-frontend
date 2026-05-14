@@ -506,30 +506,53 @@ export default function Revision() {
                     {matieres.map(m=><option key={m} value={m}>{m}</option>)}
                   </select>
                 </div>
-                <textarea
-                  value={resumeTexte}
-                  onChange={e=>setResumeTexte(e.target.value)}
-                  placeholder="Colle ton cours ici..."
-                  rows={8}
-                  style={{width:'100%', background:'#1c1a2e', border:'2px solid #2a2740', borderRadius:'12px', padding:'12px', color:'#f0eeff', fontFamily:'Nunito,sans-serif', fontSize:'0.88rem', fontWeight:600, outline:'none', resize:'vertical', boxSizing:'border-box' as any, marginBottom:'12px'}}
+                {resumeTexte && (
+                  <div style={{marginBottom:'12px', borderRadius:'12px', overflow:'hidden', border:'2px solid #2a2740'}}>
+                    <img src={resumeTexte} alt="Cours" style={{width:'100%', display:'block'}}/>
+                  </div>
+                )}
+
+                <input id="resumePhoto" type="file" accept="image/*" capture="environment" style={{display:'none'}}
+                  onChange={async(e)=>{
+                    const file = e.target.files?.[0]
+                    if(!file) return
+                    const reader = new FileReader()
+                    reader.onload = async(ev) => {
+                      const dataUrl = ev.target?.result as string
+                      const base64 = dataUrl.split(',')[1]
+                      setResumeTexte(dataUrl)
+                      setResumeLoading(true)
+                      try {
+                        const token = localStorage.getItem('duneia_token')
+                        const r = await fetch('https://scolaria-backend-production.up.railway.app/api/ai/resume-cours', {
+                          method:'POST',
+                          headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},
+                          body: JSON.stringify({imageBase64:base64, mimeType:file.type, matiere:resumeMatiere, classe:user?.classe})
+                        })
+                        const d = await r.json()
+                        if(d.success) setResumeResult(d.resume)
+                      } catch(e) { console.error(e) }
+                      finally { setResumeLoading(false) }
+                    }
+                    reader.readAsDataURL(file)
+                  }}
                 />
-                <button onClick={async()=>{
-                  if(!resumeTexte.trim()) return
-                  setResumeLoading(true)
-                  try {
-                    const token = localStorage.getItem('duneia_token')
-                    const r = await fetch('https://scolaria-backend-production.up.railway.app/api/ai/resume-cours', {
-                      method:'POST',
-                      headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},
-                      body: JSON.stringify({texte:resumeTexte, matiere:resumeMatiere, classe:user?.classe})
-                    })
-                    const d = await r.json()
-                    if(d.success) setResumeResult(d.resume)
-                  } catch(e) { console.error(e) }
-                  finally { setResumeLoading(false) }
-                }} disabled={resumeLoading||!resumeTexte.trim()} style={{...btn, background:'linear-gradient(135deg,#7c5cfc,#ff6b9d)', color:'white', width:'100%', padding:'14px', fontSize:'0.95rem', opacity:resumeLoading||!resumeTexte.trim()?0.7:1}}>
-                  {resumeLoading?'Génération de la fiche...':'📖 Générer la fiche de révision'}
-                </button>
+
+                {resumeLoading ? (
+                  <div style={{textAlign:'center', padding:'30px'}}>
+                    <div style={{width:'36px', height:'36px', border:'3px solid rgba(164,139,255,0.3)', borderTopColor:'#a48bff', borderRadius:'50%', animation:'spin 0.8s linear infinite', margin:'0 auto 12px'}}/>
+                    <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'1rem', color:'#a48bff'}}>Génération de ta fiche...</div>
+                  </div>
+                ) : (
+                  <div style={{display:'grid', gap:'10px'}}>
+                    <button onClick={()=>document.getElementById('resumePhoto')?.click()} style={{...btn, background:'linear-gradient(135deg,#a48bff,#7c5cfc)', color:'white', width:'100%', padding:'14px', fontSize:'0.95rem', display:'flex', alignItems:'center', justifyContent:'center', gap:'8px'}}>
+                      📷 Prendre une photo de mon cours
+                    </button>
+                    <button onClick={()=>{const i=document.getElementById('resumePhoto') as HTMLInputElement; if(i){i.removeAttribute('capture');i.click()}}} style={{...btn, background:'transparent', border:'2px solid #2a2740', color:'#8e8cb0', width:'100%', padding:'12px', fontSize:'0.88rem'}}>
+                      🖼️ Choisir depuis la galerie
+                    </button>
+                  </div>
+                )}
               </div>
             ) : (
               <div>
