@@ -126,7 +126,6 @@ export default function Paiement() {
             <div style={{position:'relative'}}>
               <div onClick={()=>setSelectedPlan('annuel')} style={{
                 padding:'16px', borderRadius:'16px', cursor:'pointer', textAlign:'center',
-                padding:'16px', borderRadius:'16px', cursor:'pointer', textAlign:'center',
                 border:'2px solid rgba(255,209,102,0.4)',
                 background:'rgba(255,209,102,0.08)',
               }}>
