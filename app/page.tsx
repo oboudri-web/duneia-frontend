@@ -102,7 +102,7 @@ export default function Landing() {
         </div>
         <div style={{display:'grid', gridTemplateColumns:'repeat(auto-fit,minmax(270px,1fr))', gap:'14px'}}>
           {[
-            {icon:'🔗', bg:'rgba(124,92,252,0.2)', title:'Sync Pronote complète', desc:'Notes, appréciations, devoirs rendus, absences — tout ton compte récupéré en 30 secondes automatiquement.', tag:'AUTO'},
+            {icon:'🔗', bg:'rgba(124,92,252,0.2)', title:'Sync Pronote & EcoleDirecte', desc:'Notes, appréciations, devoirs rendus, absences — tout ton compte récupéré en 30 secondes automatiquement.', tag:'AUTO'},
             {icon:'🧠', bg:'rgba(6,214,160,0.2)', title:'Plan IA 3 semaines', desc:'L\'IA croise toutes tes données et génère un plan de révision ultra-précis, semaine par semaine.', tag:'IA'},
             {icon:'🎯', bg:'rgba(255,209,102,0.2)', title:'Annales + Oral IA', desc:'Exercices d\'annales corrigés par l\'IA et entraînement à l\'oral avec un examinateur virtuel.', tag:'PREMIUM'},
             {icon:'🧬', bg:'rgba(255,107,157,0.2)', title:'ADN Scolaire', desc:'Profil cognitif complet : tes forces cachées, tes vrais blocages, ton archétype d\'élève.', tag:'PREMIUM'},
@@ -186,7 +186,7 @@ export default function Landing() {
             </div>
             <p style={{fontSize:'0.78rem', color:'#8e8cb0', fontWeight:600, marginBottom:'18px', lineHeight:1.5}}>Pour voir la puissance de DuneIA avant de s'abonner.</p>
             <ul style={{listStyle:'none', display:'flex', flexDirection:'column', gap:'8px', marginBottom:'22px'}}>
-              {['Sync Pronote (1 trimestre)','Plan IA 1 semaine','5 questions tuteur/jour','3 imports cours photo','XP, badges et streaks'].map(f=>(
+              {['Sync Pronote / EcoleDirecte','Plan IA 1 semaine','5 questions tuteur/jour','3 imports cours photo','XP, badges et streaks'].map(f=>(
                 <li key={f} style={{fontSize:'0.81rem', fontWeight:700, display:'flex', alignItems:'center', gap:'7px'}}><span style={{color:'#06d6a0'}}>✅</span> {f}</li>
               ))}
               {['Annales, Prédiction, Oral IA','ADN scolaire & Scanner','Dashboard parents'].map(f=>(
@@ -217,9 +217,9 @@ export default function Landing() {
               <span style={{fontFamily:'Fredoka,sans-serif', fontSize:'2.6rem', fontWeight:700, color:'#c4b5fd'}}>9,99€</span>
               <span style={{fontSize:'0.82rem', color:'rgba(240,238,255,0.6)', fontWeight:700}}>/mois</span>
             </div>
-            <p style={{fontSize:'0.78rem', color:'rgba(240,238,255,0.65)', fontWeight:600, marginBottom:'18px', lineHeight:1.5}}>Pour 1 élève. Sync Pronote illimitée. Sans engagement.</p>
+            <p style={{fontSize:'0.78rem', color:'rgba(240,238,255,0.65)', fontWeight:600, marginBottom:'18px', lineHeight:1.5}}>Pour 1 élève. Sync Pronote & EcoleDirecte illimitée. Sans engagement.</p>
             <ul style={{listStyle:'none', display:'flex', flexDirection:'column', gap:'8px', marginBottom:'22px'}}>
-              {['Sync Pronote tous trimestres','Analyse complète du compte','Plan IA 3 semaines détaillé','Tuteur IA illimité 24h/24','Annales IA + correction','Prédiction de notes','Entraînement oral IA','ADN scolaire + Scanner copie','Dashboard parents inclus','Import cours illimité (OCR)'].map(f=>(
+              {['Sync Pronote & EcoleDirecte','Analyse complète du compte','Plan IA 3 semaines détaillé','Tuteur IA illimité 24h/24','Annales IA + correction','Prédiction de notes','Entraînement oral IA','ADN scolaire + Scanner copie','Dashboard parents inclus','Import cours illimité (OCR)'].map(f=>(
                 <li key={f} style={{fontSize:'0.81rem', fontWeight:700, display:'flex', alignItems:'center', gap:'7px', color:'#f0eeff'}}><span style={{color:'#06d6a0'}}>✅</span> {f}</li>
               ))}
             </ul>
@@ -234,7 +234,7 @@ export default function Landing() {
             </div>
             <p style={{fontSize:'0.78rem', color:'#8e8cb0', fontWeight:600, marginBottom:'18px', lineHeight:1.5}}>Jusqu'à 3 enfants. Tout le Premium multiplié.</p>
             <ul style={{listStyle:'none', display:'flex', flexDirection:'column', gap:'8px', marginBottom:'22px'}}>
-              {['Tout le plan Premium','3 profils élèves indépendants','Sync Pronote pour chaque enfant','Dashboard parents unifié','Alertes décrochage temps réel','Rapport email hebdomadaire','Messagerie parent ↔ enfant','Support prioritaire'].map(f=>(
+              {['Tout le plan Premium','3 profils élèves indépendants','Sync Pronote & EcoleDirecte','Dashboard parents unifié','Alertes décrochage temps réel','Rapport email hebdomadaire','Messagerie parent ↔ enfant','Support prioritaire'].map(f=>(
                 <li key={f} style={{fontSize:'0.81rem', fontWeight:700, display:'flex', alignItems:'center', gap:'7px'}}><span style={{color:'#06d6a0'}}>✅</span> {f}</li>
               ))}
             </ul>
@@ -247,7 +247,7 @@ export default function Landing() {
       <div style={{textAlign:'center', padding:'60px 16px'}}>
         <div style={{maxWidth:'100%', margin:'0 auto', background:'linear-gradient(135deg,#1a1040,#15102a)', border:'2px solid rgba(124,92,252,0.4)', borderRadius:'26px', padding:'52px 36px'}}>
           <h2 style={{fontFamily:'Fredoka,sans-serif', fontSize:'clamp(1.7rem,4vw,2.6rem)', fontWeight:700, marginBottom:'13px', lineHeight:1.2}}>
-            Connecte ton Pronote<br/>et progresse vraiment 🚀
+            Connecte ton Pronote ou EcoleDirecte<br/>et progresse vraiment 🚀
           </h2>
           <p style={{fontSize:'0.9rem', color:'#8e8cb0', fontWeight:600, lineHeight:1.7, marginBottom:'28px', maxWidth:'420px', marginLeft:'auto', marginRight:'auto'}}>
             DuneIA analyse tout ton compte Pronote ou EcoleDirecte et génère un plan au millimètre. Sans rien saisir à la main. Sans carte bancaire.
