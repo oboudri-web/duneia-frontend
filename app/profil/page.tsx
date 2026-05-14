@@ -82,7 +82,7 @@ export default function Profil() {
     {icon:'🔥', name:'Premier pas', desc:'Compte créé', active:true},
     {icon:'📚', name:'Studieux', desc:'3 chapitres cochés', active:true},
     {icon:'🧠', name:'Stratège', desc:'Plan IA généré', active:true},
-    {icon:'⭐', name:'Premium', desc:'Abonnement actif', active:user?.plan_active},
+    {icon: user?.plan==='annuel'?'🔥':user?.plan==='famille'?'👨‍👩‍👧':'⭐', name: user?.plan==='annuel'?'Premium Annuel':user?.plan==='famille'?'Famille':'Premium', desc:'Abonnement actif', active:user?.plan_active},
     {icon:'🎯', name:'Annaliste', desc:'1ère annale réussie', active:false},
     {icon:'🏆', name:'Top 3', desc:'Classement amis', active:false},
   ]
@@ -129,11 +129,11 @@ export default function Profil() {
             <div>
               <div style={{fontSize:'0.72rem', fontWeight:800, color:'#8e8cb0', textTransform:'uppercase', letterSpacing:'0.06em', marginBottom:'4px'}}>Plan actuel</div>
               <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'1rem', fontWeight:700, color:user.plan_active?'#a48bff':'#f0eeff'}}>
-                {user.plan_active ? (user.plan==='famille'?'👨‍👩‍👧 Famille':'⭐ Premium') : '🆓 Gratuit'}
+                {user.plan_active ? (user.plan==='famille'?'👨‍👩‍👧 Famille':user.plan==='annuel'?'🔥 Premium Annuel':'⭐ Premium') : '🆓 Gratuit'}
               </div>
             </div>
             {!user.plan_active && (
-              <button onClick={()=>router.push('/paiement')} style={{padding:'9px 16px', borderRadius:'10px', border:'none', background:'linear-gradient(135deg,#7c5cfc,#ff6b9d)', color:'white', fontFamily:'Nunito,sans-serif', fontWeight:800, fontSize:'0.82rem', cursor:'pointer'}}>⭐ Passer Premium</button>
+              {!user.plan_active && <button onClick={()=>router.push('/paiement')} style={{padding:'9px 16px', borderRadius:'10px', border:'none', background:'linear-gradient(135deg,#7c5cfc,#ff6b9d)', color:'white', fontFamily:'Nunito,sans-serif', fontWeight:800, fontSize:'0.82rem', cursor:'pointer'}}>⭐ Passer Premium</button>}
             )}
           </div>
         </div>
