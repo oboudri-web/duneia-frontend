@@ -125,20 +125,22 @@ export default function Paiement() {
           <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:'10px', marginBottom:'20px'}}>
             {/* Plan annuel en premier */}
             <div style={{gridColumn:'1/-1', position:'relative'}}>
+              {(()=>{ const pa = plans['annuel']; const sel = selectedPlan==='annuel'; return (
               <div onClick={()=>setSelectedPlan('annuel')} style={{
                 padding:'16px', borderRadius:'16px', cursor:'pointer', textAlign:'center',
-                border:'2px solid ' + (selectedPlan==='annuel' ? plans['annuel'].border : 'rgba(255,209,102,0.3)'),
-                background: selectedPlan==='annuel' ? plans['annuel'].bg : 'rgba(255,209,102,0.05)',
+                border:'2px solid ' + (sel ? pa.border : 'rgba(255,209,102,0.3)'),
+                background: sel ? pa.bg : 'rgba(255,209,102,0.05)',
                 transition:'all 0.2s'
               }}>
                 <div style={{position:'absolute', top:'-11px', left:'50%', transform:'translateX(-50%)', background:'linear-gradient(135deg,#ffd166,#ff9f1c)', borderRadius:'100px', padding:'3px 14px', fontSize:'0.7rem', fontWeight:900, color:'#0a0914', whiteSpace:'nowrap'}}>🔥 2 MOIS OFFERTS</div>
-                <div style={{fontSize:'1.6rem', marginBottom:'6px'}}>{plans['annuel'].icon}</div>
-                <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'1rem', fontWeight:700, color:selectedPlan==='annuel'?plans['annuel'].color:'#ffd166'}}>{plans['annuel'].name}</div>
-                <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'1.4rem', fontWeight:700, marginTop:'4px', color:selectedPlan==='annuel'?plans['annuel'].color:'#ffd166'}}>
-                  {plans['annuel'].price}<span style={{fontSize:'0.75rem', fontWeight:700, color:'#8e8cb0'}}>{plans['annuel'].period}</span>
+                <div style={{fontSize:'1.6rem', marginBottom:'6px'}}>{pa.icon}</div>
+                <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'1rem', fontWeight:700, color:sel?pa.color:'#ffd166'}}>{pa.name}</div>
+                <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'1.4rem', fontWeight:700, marginTop:'4px', color:sel?pa.color:'#ffd166'}}>
+                  {pa.price}<span style={{fontSize:'0.75rem', fontWeight:700, color:'#8e8cb0'}}>{pa.period}</span>
                 </div>
                 <div style={{fontSize:'0.72rem', color:'#8e8cb0', fontWeight:700, marginTop:'4px'}}>6,58€/mois · économise 41€</div>
               </div>
+              )}})()}
             </div>
             {(['premium','famille'] as const).map(p=>(
               <div key={p} onClick={()=>setSelectedPlan(p)} style={{
