@@ -32,7 +32,8 @@ export default function Onboarding() {
   }
 
   async function syncPronote() {
-    if(!pronoteUrl || !pronoteUser || !pronotePass) { alert('Remplis tous les champs !'); return }
+    if(platform === 'Pronote' && !pronoteUrl) { alert('Entre l\'URL de ton Pronote !'); return }
+    if(!pronoteUser || !pronotePass) { alert('Remplis tous les champs !'); return }
     const token = localStorage.getItem('duneia_token')
     if(!token) { router.push('/auth'); return }
     setSyncing(true)
