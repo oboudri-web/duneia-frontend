@@ -8,7 +8,7 @@ const BACKEND = 'https://scolaria-backend-production.up.railway.app'
 export default function Revision() {
   const router = useRouter()
   const [user, setUser] = useState<any>(null)
-  const [mode, setMode] = useState<'menu'|'tuteur'|'qcm'|'flash'>('menu')
+  const [mode, setMode] = useState<'menu'|'tuteur'|'qcm'|'flash'|'resume'>('menu')
   
   // Tuteur
   const [messages, setMessages] = useState<any[]>([])
@@ -16,6 +16,12 @@ export default function Revision() {
   const [loading, setLoading] = useState(false)
   const [matiere, setMatiere] = useState('Mathématiques')
   const messagesEnd = useRef<any>(null)
+
+  // Résumé
+  const [resumeTexte, setResumeTexte] = useState('')
+  const [resumeMatiere, setResumeMatiere] = useState('Mathématiques')
+  const [resumeResult, setResumeResult] = useState<any>(null)
+  const [resumeLoading, setResumeLoading] = useState(false)
 
   // Flashcards
   const [flashMatiere, setFlashMatiere] = useState('Mathématiques')
@@ -123,7 +129,7 @@ export default function Revision() {
         <button onClick={()=>mode==='menu'?router.push('/app'):setMode('menu')} style={{...btn, background:'rgba(255,255,255,0.06)', color:'#8e8cb0'}}>← {mode==='menu'?'App':'Menu'}</button>
         <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'1.1rem', fontWeight:700, color:'#ffd166'}}>🎓 DuneIA</div>
         <div style={{marginLeft:'auto', fontSize:'0.78rem', fontWeight:800, color:'#a48bff'}}>
-          {mode==='tuteur'?'🧑‍🏫 Tuteur IA':mode==='qcm'?'❓ QCM':mode==='flash'?'🃏 Flashcards':'📚 Révision'}
+          {mode==='tuteur'?'🧑‍🏫 Tuteur IA':mode==='qcm'?'❓ QCM':mode==='flash'?'🃏 Flashcards':mode==='resume'?'📖 Résumé':'📚 Révision'}
         </div>
       </nav>
 
@@ -150,6 +156,21 @@ export default function Revision() {
                 <div style={{display:'flex', gap:'8px', flexWrap:'wrap'}}>
                   {['🤔 Méthode socratique','💬 Conversation naturelle','📚 Toutes matières'].map(t=>(
                     <span key={t} style={{background:'rgba(124,92,252,0.1)', border:'1px solid rgba(124,92,252,0.2)', borderRadius:'100px', padding:'3px 10px', fontSize:'0.7rem', fontWeight:800, color:'#a48bff'}}>{t}</span>
+                  ))}
+                </div>
+              </div>
+
+              <div onClick={()=>setMode('resume')} style={{background:'#131120', border:'2px solid rgba(164,139,255,0.3)', borderRadius:'20px', padding:'24px', cursor:'pointer', transition:'all 0.2s'}}>
+                <div style={{display:'flex', alignItems:'center', gap:'14px', marginBottom:'12px'}}>
+                  <div style={{width:'48px', height:'48px', borderRadius:'14px', background:'rgba(164,139,255,0.12)', display:'flex', alignItems:'center', justifyContent:'center', fontSize:'1.5rem'}}>📖</div>
+                  <div>
+                    <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'1.1rem', fontWeight:700}}>Résumé de cours IA</div>
+                    <div style={{fontSize:'0.76rem', color:'#8e8cb0', fontWeight:600}}>Fiche de révision en 30 secondes</div>
+                  </div>
+                </div>
+                <div style={{display:'flex', gap:'8px', flexWrap:'wrap'}}>
+                  {['📝 Colle ton cours','🖼️ Photo du cours','📌 Points clés + définitions'].map(t=>(
+                    <span key={t} style={{background:'rgba(164,139,255,0.08)', border:'1px solid rgba(164,139,255,0.2)', borderRadius:'100px', padding:'3px 10px', fontSize:'0.7rem', fontWeight:800, color:'#a48bff'}}>{t}</span>
                   ))}
                 </div>
               </div>
@@ -465,6 +486,92 @@ export default function Revision() {
                     </button>
                   </div>
                 )}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* RÉSUMÉ DE COURS */}
+        {mode==='resume' && (
+          <div>
+            {!resumeResult ? (
+              <div>
+                <div style={{textAlign:'center', marginBottom:'24px'}}>
+                  <div style={{fontSize:'2rem', marginBottom:'10px'}}>📖</div>
+                  <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'1.2rem', fontWeight:700}}>Résumé de cours IA</div>
+                  <p style={{fontSize:'0.82rem', color:'#8e8cb0', fontWeight:600, marginTop:'6px'}}>Colle ton cours ou prends une photo — DuneIA génère une fiche de révision complète</p>
+                </div>
+                <div style={{marginBottom:'12px'}}>
+                  <select value={resumeMatiere} onChange={e=>setResumeMatiere(e.target.value)} style={{width:'100%', background:'#1c1a2e', border:'2px solid #2a2740', borderRadius:'10px', padding:'10px', color:'#f0eeff', fontFamily:'Nunito,sans-serif', fontSize:'0.9rem', fontWeight:700, outline:'none'}}>
+                    {matieres.map(m=><option key={m} value={m}>{m}</option>)}
+                  </select>
+                </div>
+                <textarea
+                  value={resumeTexte}
+                  onChange={e=>setResumeTexte(e.target.value)}
+                  placeholder="Colle ton cours ici..."
+                  rows={8}
+                  style={{width:'100%', background:'#1c1a2e', border:'2px solid #2a2740', borderRadius:'12px', padding:'12px', color:'#f0eeff', fontFamily:'Nunito,sans-serif', fontSize:'0.88rem', fontWeight:600, outline:'none', resize:'vertical', boxSizing:'border-box' as any, marginBottom:'12px'}}
+                />
+                <button onClick={async()=>{
+                  if(!resumeTexte.trim()) return
+                  setResumeLoading(true)
+                  try {
+                    const token = localStorage.getItem('duneia_token')
+                    const r = await fetch('https://scolaria-backend-production.up.railway.app/api/ai/resume-cours', {
+                      method:'POST',
+                      headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},
+                      body: JSON.stringify({texte:resumeTexte, matiere:resumeMatiere, classe:user?.classe})
+                    })
+                    const d = await r.json()
+                    if(d.success) setResumeResult(d.resume)
+                  } catch(e) { console.error(e) }
+                  finally { setResumeLoading(false) }
+                }} disabled={resumeLoading||!resumeTexte.trim()} style={{...btn, background:'linear-gradient(135deg,#7c5cfc,#ff6b9d)', color:'white', width:'100%', padding:'14px', fontSize:'0.95rem', opacity:resumeLoading||!resumeTexte.trim()?0.7:1}}>
+                  {resumeLoading?'Génération de la fiche...':'📖 Générer la fiche de révision'}
+                </button>
+              </div>
+            ) : (
+              <div>
+                <div style={{background:'linear-gradient(135deg,rgba(124,92,252,0.15),rgba(255,107,157,0.08))', border:'2px solid rgba(124,92,252,0.3)', borderRadius:'18px', padding:'20px', marginBottom:'14px'}}>
+                  <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'1.1rem', fontWeight:700, marginBottom:'8px'}}>{resumeResult.titre}</div>
+                  <p style={{fontSize:'0.84rem', color:'#f0eeff', fontWeight:600, lineHeight:1.7, margin:0}}>{resumeResult.resume}</p>
+                </div>
+                {resumeResult.a_retenir && (
+                  <div style={{background:'rgba(255,209,102,0.08)', border:'2px solid rgba(255,209,102,0.2)', borderRadius:'14px', padding:'14px', marginBottom:'14px'}}>
+                    <div style={{fontSize:'0.72rem', fontWeight:800, color:'#ffd166', marginBottom:'6px'}}>⭐ À RETENIR</div>
+                    <p style={{fontSize:'0.86rem', fontWeight:700, color:'#ffd166', margin:0}}>{resumeResult.a_retenir}</p>
+                  </div>
+                )}
+                {resumeResult.points_cles?.length > 0 && (
+                  <div style={{background:'#131120', border:'2px solid #2a2740', borderRadius:'16px', padding:'18px', marginBottom:'14px'}}>
+                    <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'0.95rem', fontWeight:700, marginBottom:'12px'}}>📌 Points clés</div>
+                    {resumeResult.points_cles.map((p:string,i:number)=>(
+                      <div key={i} style={{display:'flex', gap:'8px', marginBottom:'8px', fontSize:'0.83rem', fontWeight:600, color:'#f0eeff'}}>
+                        <span style={{color:'#a48bff', flexShrink:0}}>•</span>{p}
+                      </div>
+                    ))}
+                  </div>
+                )}
+                {resumeResult.definitions?.length > 0 && (
+                  <div style={{background:'#131120', border:'2px solid #2a2740', borderRadius:'16px', padding:'18px', marginBottom:'14px'}}>
+                    <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'0.95rem', fontWeight:700, marginBottom:'12px'}}>📚 Définitions</div>
+                    {resumeResult.definitions.map((d:any,i:number)=>(
+                      <div key={i} style={{marginBottom:'10px', paddingBottom:'10px', borderBottom:i<resumeResult.definitions.length-1?'1px solid rgba(255,255,255,0.05)':'none'}}>
+                        <div style={{fontSize:'0.82rem', fontWeight:800, color:'#a48bff', marginBottom:'3px'}}>{d.terme}</div>
+                        <div style={{fontSize:'0.8rem', fontWeight:600, color:'#8e8cb0', lineHeight:1.6}}>{d.definition}</div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+                <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:'10px'}}>
+                  <button onClick={()=>{setResumeResult(null);setResumeTexte('')}} style={{...btn, background:'rgba(124,92,252,0.1)', color:'#a48bff', border:'2px solid rgba(124,92,252,0.3)', padding:'12px'}}>
+                    🔄 Nouveau résumé
+                  </button>
+                  <button onClick={()=>setMode('flash')} style={{...btn, background:'linear-gradient(135deg,#7c5cfc,#ff6b9d)', color:'white', padding:'12px'}}>
+                    🃏 Flashcards
+                  </button>
+                </div>
               </div>
             )}
           </div>
