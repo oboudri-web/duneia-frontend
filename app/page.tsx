@@ -198,6 +198,20 @@ export default function Landing() {
           {/* PREMIUM */}
           <div style={{background:'linear-gradient(160deg,#1a1535,#12102a)', border:'2px solid rgba(124,92,252,0.55)', borderRadius:'20px', padding:'26px', position:'relative', boxShadow:'0 8px 40px rgba(124,92,252,0.25)'}}>
             <div style={{position:'absolute', top:'14px', right:'14px', background:'#7c5cfc', color:'white', fontSize:'0.62rem', fontWeight:900, letterSpacing:'0.06em', padding:'3px 9px', borderRadius:'100px'}}>⭐ POPULAIRE</div>
+            {/* Plan Annuel */}
+            <div style={{background:'linear-gradient(135deg,rgba(255,209,102,0.12),rgba(255,159,28,0.06))', border:'2px solid rgba(255,209,102,0.4)', borderRadius:'18px', padding:'20px', marginBottom:'14px', position:'relative'}}>
+              <div style={{position:'absolute', top:'-11px', left:'50%', transform:'translateX(-50%)', background:'linear-gradient(135deg,#ffd166,#ff9f1c)', borderRadius:'100px', padding:'3px 14px', fontSize:'0.7rem', fontWeight:900, color:'#0a0914', whiteSpace:'nowrap'}}>
+                🔥 2 MOIS OFFERTS
+              </div>
+              <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'1rem', fontWeight:700, marginBottom:'5px', color:'#ffd166'}}>🔥 Premium Annuel</div>
+              <div style={{display:'flex', alignItems:'baseline', gap:'4px', marginBottom:'4px'}}>
+                <span style={{fontFamily:'Fredoka,sans-serif', fontSize:'2.6rem', fontWeight:700, color:'#ffd166'}}>79€</span>
+                <span style={{fontSize:'0.85rem', color:'#8e8cb0', fontWeight:700}}>/an</span>
+              </div>
+              <div style={{fontSize:'0.75rem', color:'#8e8cb0', fontWeight:700, marginBottom:'12px'}}>soit 6,58€/mois — économise 41€</div>
+              <button onClick={()=>router.push('/paiement?plan=annuel')} style={{width:'100%', padding:'12px', borderRadius:'11px', background:'linear-gradient(135deg,#ffd166,#ff9f1c)', color:'#0a0914', border:'none', fontFamily:'Nunito,sans-serif', fontWeight:900, fontSize:'0.9rem', cursor:'pointer'}}>Choisir le plan annuel</button>
+            </div>
+
             <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'1rem', fontWeight:700, marginBottom:'5px', color:'#a48bff'}}>⭐ Premium</div>
             <div style={{display:'flex', alignItems:'baseline', gap:'4px', margin:'12px 0'}}>
               <span style={{fontFamily:'Fredoka,sans-serif', fontSize:'2.6rem', fontWeight:700, color:'#c4b5fd'}}>9,99€</span>
@@ -242,7 +256,7 @@ export default function Landing() {
             🚀 Commencer gratuitement
           </button>
           <div style={{marginTop:'14px', fontSize:'0.76rem', color:'#8e8cb0', fontWeight:700}}>
-            ✅ Gratuit · ⭐ Premium 9,99€/mois · ❌ Sans engagement
+            ✅ Gratuit · 🔥 Annuel 79€/an · ⭐ Premium 9,99€/mois · ❌ Sans engagement
           </div>
         </div>
       </div>
