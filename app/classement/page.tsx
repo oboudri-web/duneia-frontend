@@ -151,6 +151,28 @@ export default function Classement() {
         </div>
 
       </div>
+      {/* Share banner */}
+      <div style={{maxWidth:'680px', margin:'0 auto', padding:'0 16px 20px'}}>
+        <div style={{background:'linear-gradient(135deg,rgba(124,92,252,0.15),rgba(255,107,157,0.08))', border:'2px solid rgba(124,92,252,0.3)', borderRadius:'16px', padding:'16px', display:'flex', alignItems:'center', gap:'14px'}}>
+          <div style={{fontSize:'1.5rem'}}>🔗</div>
+          <div style={{flex:1}}>
+            <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'0.95rem', fontWeight:700, marginBottom:'3px'}}>Défie tes amis !</div>
+            <div style={{fontSize:'0.76rem', color:'#8e8cb0', fontWeight:600}}>Partage DuneIA et monte dans le classement ensemble</div>
+          </div>
+          <button onClick={()=>{
+            const msg = "Rejoins-moi sur DuneIA — l'app qui connecte ton Pronote et te fait réviser comme Duolingo ! Essai gratuit sur duneia.fr 🚀"
+            if(typeof navigator !== 'undefined' && navigator.share) {
+              navigator.share({ title: 'DuneIA', text: msg, url: 'https://duneia.fr' })
+            } else if(typeof navigator !== 'undefined') {
+              navigator.clipboard?.writeText(msg + ' https://duneia.fr')
+              alert('Lien copié !')
+            }
+          }} style={{padding:'10px 16px', borderRadius:'10px', border:'none', background:'linear-gradient(135deg,#7c5cfc,#ff6b9d)', color:'white', fontFamily:'Nunito,sans-serif', fontWeight:800, fontSize:'0.82rem', cursor:'pointer', flexShrink:0}}>
+            Partager
+          </button>
+        </div>
+      </div>
+
       <BottomNav active="app"/>
     </div>
   )
