@@ -250,7 +250,7 @@ export default function Landing() {
             Connecte ton Pronote<br/>et progresse vraiment 🚀
           </h2>
           <p style={{fontSize:'0.9rem', color:'#8e8cb0', fontWeight:600, lineHeight:1.7, marginBottom:'28px', maxWidth:'420px', marginLeft:'auto', marginRight:'auto'}}>
-            DuneIA analyse tout ton compte Pronote et génère un plan au millimètre. Sans rien saisir à la main. Sans carte bancaire.
+            DuneIA analyse tout ton compte Pronote ou EcoleDirecte et génère un plan au millimètre. Sans rien saisir à la main. Sans carte bancaire.
           </p>
           <button onClick={()=>router.push('/auth?tab=signup')} style={{padding:'16px 32px', borderRadius:'14px', border:'none', background:'linear-gradient(135deg,#7c5cfc,#ff6b9d)', color:'white', fontFamily:'Nunito,sans-serif', fontWeight:800, fontSize:'1rem', cursor:'pointer', boxShadow:'0 6px 28px rgba(124,92,252,0.4)'}}>
             🚀 Commencer gratuitement
