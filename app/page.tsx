@@ -54,7 +54,7 @@ export default function Landing() {
           </h1>
 
           <p style={{fontSize:'1.05rem', color:'rgba(240,238,255,0.72)', lineHeight:1.7, maxWidth:'520px', margin:'0 auto 36px', fontWeight:600}}>
-            Connecte ton Pronote en 30 secondes. DuneIA analyse tout ton compte — notes, appréciations des profs, devoirs rendus, absences — et génère un plan de révision au millimètre. Sans rien saisir à la main.
+            Connecte ton Pronote ou EcoleDirecte en 30 secondes. DuneIA analyse tout ton compte — notes, appréciations des profs, devoirs rendus, absences — et génère un plan de révision au millimètre. Sans rien saisir à la main.
           </p>
 
           <div style={{display:'flex', gap:'14px', justifyContent:'center', flexWrap:'wrap', marginBottom:'48px'}}>
