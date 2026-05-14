@@ -160,7 +160,7 @@ export default function Classement() {
             <div style={{fontSize:'0.76rem', color:'#8e8cb0', fontWeight:600}}>Partage DuneIA et monte dans le classement ensemble</div>
           </div>
           <button onClick={()=>{
-            const msg = "Rejoins-moi sur DuneIA — l'app qui connecte ton Pronote et te fait réviser comme Duolingo ! Essai gratuit sur duneia.fr 🚀"
+            const msg = "Rejoins-moi sur DuneIA — l'app qui connecte ton Pronote ou EcoleDirecte et te fait réviser comme Duolingo ! Essai gratuit sur duneia.fr 🚀"
             if(typeof navigator !== 'undefined' && navigator.share) {
               navigator.share({ title: 'DuneIA', text: msg, url: 'https://duneia.fr' })
             } else if(typeof navigator !== 'undefined') {
