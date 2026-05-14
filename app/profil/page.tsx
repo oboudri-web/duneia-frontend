@@ -132,9 +132,7 @@ export default function Profil() {
                 {user.plan_active ? (user.plan==='famille'?'👨‍👩‍👧 Famille':user.plan==='annuel'?'🔥 Premium Annuel':'⭐ Premium') : '🆓 Gratuit'}
               </div>
             </div>
-            {!user.plan_active && (
               {!user.plan_active && <button onClick={()=>router.push('/paiement')} style={{padding:'9px 16px', borderRadius:'10px', border:'none', background:'linear-gradient(135deg,#7c5cfc,#ff6b9d)', color:'white', fontFamily:'Nunito,sans-serif', fontWeight:800, fontSize:'0.82rem', cursor:'pointer'}}>⭐ Passer Premium</button>}
-            )}
           </div>
         </div>
 
