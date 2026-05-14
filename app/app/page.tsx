@@ -17,6 +17,7 @@ const TABS = [
   {id:8, icon:'📸', label:'Copie', sub:'⭐', premium:true},
   {id:9, icon:'🧬', label:'ADN', sub:'⭐', premium:true},
   {id:10, icon:'📚', label:'Révision', sub:'', premium:false},
+  {id:12, icon:'🎯', label:'Quêtes', sub:'', premium:false},
   {id:11, icon:'🎮', label:'Jeux', sub:'', premium:false},
 ]
 
@@ -159,6 +160,7 @@ export default function App() {
     if(tab.id === 7) { window.location.href='/classement'; return }
     if(tab.id === 8) { window.location.href='/copie'; return }
     if(tab.id === 10) { window.location.href='/revision'; return }
+    if(tab.id === 12) { window.location.href='/quetes'; return }
     if(tab.id === 11) { window.location.href='/jeux'; return }
     if(tab.id === 4) { window.location.href='/annales'; return }
     if(tab.id === 5) { window.location.href='/prediction'; return }
