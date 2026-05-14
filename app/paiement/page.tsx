@@ -127,7 +127,7 @@ export default function Paiement() {
             <div style={{gridColumn:'1/-1', position:'relative'}}>
               <div onClick={()=>setSelectedPlan('annuel')} style={{
                 padding:'16px', borderRadius:'16px', cursor:'pointer', textAlign:'center',
-                border:`2px solid ${selectedPlan==='annuel' ? plans['annuel'].border : 'rgba(255,209,102,0.3)'}`,
+                border:'2px solid ' + (selectedPlan==='annuel' ? plans['annuel'].border : 'rgba(255,209,102,0.3)'),
                 background: selectedPlan==='annuel' ? plans['annuel'].bg : 'rgba(255,209,102,0.05)',
                 transition:'all 0.2s'
               }}>
