@@ -7,7 +7,7 @@ const BACKEND = 'https://scolaria-backend-production.up.railway.app'
 export default function Paiement() {
   const router = useRouter()
   const [user, setUser] = useState<any>(null)
-  const [selectedPlan, setSelectedPlan] = useState<'premium'|'famille'>('premium')
+  const [selectedPlan, setSelectedPlan] = useState<'premium'|'famille'|'annuel'>('annuel')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
