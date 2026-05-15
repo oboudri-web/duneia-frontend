@@ -79,6 +79,8 @@ export default function Onboarding() {
   const skip: React.CSSProperties = {width:'100%', padding:'9px', borderRadius:'11px', border:'none', background:'transparent', color:'#8e8cb0', fontFamily:'Nunito,sans-serif', fontWeight:700, fontSize:'0.83rem', cursor:'pointer', marginTop:'7px'}
 
   return (
+    <>
+    <style dangerouslySetInnerHTML={{__html: "@keyframes bounce { 0%,100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }"}} />
     <div style={{minHeight:'100vh', display:'flex', alignItems:'center', justifyContent:'center', padding:'24px', position:'relative', zIndex:1}}>
       <div style={{width:'100%', maxWidth:'500px'}}>
 
@@ -90,7 +92,7 @@ export default function Onboarding() {
         {/* Step 0 — Bienvenue */}
         {step === 0 && (
           <div style={{textAlign:'center'}}>
-            <div style={{fontSize:'3.8rem', marginBottom:'18px'}}>🎉</div>
+            <img src='/dune-pointe.png' style={{width:'110px',height:'110px',objectFit:'contain',animation:'bounce 2s infinite',filter:'drop-shadow(0 4px 16px rgba(124,92,252,0.5))',marginBottom:'12px'}} alt='Dune'/>
             <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'1.7rem', fontWeight:700, marginBottom:'9px'}}>Bienvenue sur DuneIA !</div>
             <p style={{fontSize:'0.88rem', color:'#8e8cb0', fontWeight:600, lineHeight:1.7, marginBottom:'24px'}}>
               Connecte ton {platform} et DuneIA analyse tout automatiquement. Moins de 2 minutes !
@@ -106,7 +108,7 @@ export default function Onboarding() {
         {/* Step 1 — Pronote */}
         {step === 1 && (
           <div>
-            <div style={{fontSize:'3.8rem', textAlign:'center', marginBottom:'18px'}}>🔗</div>
+            <img src='/dune-pointe.png' style={{width:'90px',height:'90px',objectFit:'contain',animation:'bounce 2s infinite',filter:'drop-shadow(0 4px 16px rgba(124,92,252,0.5))',marginBottom:'12px'}} alt='Dune'/>
             <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'1.7rem', fontWeight:700, textAlign:'center', marginBottom:'9px'}}>Connecte {platform}</div>
             <p style={{fontSize:'0.88rem', color:'#8e8cb0', fontWeight:600, lineHeight:1.7, textAlign:'center', marginBottom:'24px'}}>
               DuneIA récupère tes notes et appréciations automatiquement. Tes identifiants sont chiffrés.
@@ -158,7 +160,7 @@ export default function Onboarding() {
         {/* Step 2 — Objectifs */}
         {step === 2 && (
           <div>
-            <div style={{fontSize:'3.8rem', textAlign:'center', marginBottom:'18px'}}>🏆</div>
+            <img src='/dune-lit.png' style={{width:'90px',height:'90px',objectFit:'contain',animation:'bounce 2s infinite',filter:'drop-shadow(0 4px 16px rgba(124,92,252,0.5))',marginBottom:'12px'}} alt='Dune'/>
             <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'1.7rem', fontWeight:700, textAlign:'center', marginBottom:'9px'}}>Tes objectifs</div>
             <p style={{fontSize:'0.88rem', color:'#8e8cb0', fontWeight:600, lineHeight:1.7, textAlign:'center', marginBottom:'24px'}}>
               Sélectionne tout ce qui s'applique.
@@ -200,7 +202,7 @@ export default function Onboarding() {
         {/* Step 3 — Plan */}
         {step === 3 && (
           <div>
-            <div style={{fontSize:'3.8rem', textAlign:'center', marginBottom:'18px'}}>⭐</div>
+            <img src='/dune-celebre.png' style={{width:'90px',height:'90px',objectFit:'contain',animation:'bounce 2s infinite',filter:'drop-shadow(0 4px 16px rgba(124,92,252,0.5))',marginBottom:'12px'}} alt='Dune'/>
             <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'1.7rem', fontWeight:700, textAlign:'center', marginBottom:'9px'}}>Choisis ton plan</div>
             <p style={{fontSize:'0.88rem', color:'#8e8cb0', fontWeight:600, lineHeight:1.7, textAlign:'center', marginBottom:'24px'}}>
               Commence gratuitement, upgrade quand tu veux.
@@ -244,7 +246,7 @@ export default function Onboarding() {
         {/* Step 4 — Done */}
         {step === 4 && (
           <div style={{textAlign:'center'}}>
-            <div style={{fontSize:'5rem', marginBottom:'16px'}}>🎮</div>
+            <img src='/dune-celebre.png' style={{width:'130px',height:'130px',objectFit:'contain',animation:'bounce 1s infinite',filter:'drop-shadow(0 4px 20px rgba(124,92,252,0.7))',marginBottom:'12px'}} alt='Dune'/>
             <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'1.7rem', fontWeight:700, marginBottom:'9px'}}>C'est parti !</div>
             <p style={{fontSize:'0.88rem', color:'#8e8cb0', fontWeight:600, lineHeight:1.7, marginBottom:'24px'}}>
               {`Ton espace est prêt. DuneIA va analyser ton ${platform} !`}
@@ -268,5 +270,6 @@ export default function Onboarding() {
 
       </div>
     </div>
+    </>
   )
 }
