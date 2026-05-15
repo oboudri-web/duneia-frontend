@@ -288,7 +288,7 @@ export default function Revision() {
               </div>
             ) : finished ? (
               <div style={{textAlign:'center', padding:'40px 20px'}}>
-                <img src={score>=3?'/dune-celebre.png':'/dune-lit.png'} style={{width:'100px',height:'100px',objectFit:'contain',animation:'bounce 1.5s infinite',filter:'drop-shadow(0 4px 16px rgba(124,92,252,0.5))',mixBlendMode:'multiply' as any,marginBottom:'8px'}} alt='Dune'/>
+                <img src={score>=3?'/dune-celebre.png':'/dune-lit.png'} style={{width:'100px',height:'100px',objectFit:'contain',animation:'bounce 1.5s infinite',filter:'drop-shadow(0 4px 16px rgba(124,92,252,0.5))',mixBlendMode:'screen' as any,marginBottom:'8px'}} alt='Dune'/>
                 <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'1.6rem', fontWeight:700, marginBottom:'8px'}}>
                   {score}/{qcm.questions.length} bonnes réponses
                 </div>
@@ -405,7 +405,7 @@ export default function Revision() {
               </div>
             ) : known.length + unknown.length === flashcards.cartes.length ? (
               <div style={{textAlign:'center', padding:'40px 20px'}}>
-                <img src={known.length >= flashcards.cartes.length*0.7 ? '/dune-celebre.png' : '/dune-lit.png'} style={{width:'100px',height:'100px',objectFit:'contain',animation:'bounce 1.5s infinite',filter:'drop-shadow(0 4px 16px rgba(124,92,252,0.5))',mixBlendMode:'multiply' as any,marginBottom:'8px'}} alt='Dune'/>
+                <img src={known.length >= flashcards.cartes.length*0.7 ? '/dune-celebre.png' : '/dune-lit.png'} style={{width:'100px',height:'100px',objectFit:'contain',animation:'bounce 1.5s infinite',filter:'drop-shadow(0 4px 16px rgba(124,92,252,0.5))',mixBlendMode:'screen' as any,marginBottom:'8px'}} alt='Dune'/>
                 <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'1.6rem', fontWeight:700, marginBottom:'8px'}}>
                   {known.length}/{flashcards.cartes.length} mémorisées
                 </div>

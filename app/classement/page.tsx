@@ -74,7 +74,7 @@ export default function Classement() {
         
         {/* Streak banner */}
         <div style={{background:'linear-gradient(135deg,rgba(255,159,28,0.15),rgba(255,107,157,0.08))', border:'2px solid rgba(255,159,28,0.3)', borderRadius:'18px', padding:'20px', marginBottom:'16px', display:'flex', alignItems:'center', gap:'16px'}}>
-          <img src='/dune-celebre.png' style={{width:'70px',height:'70px',objectFit:'contain',animation:'bounce 2s infinite',filter:'drop-shadow(0 4px 12px rgba(255,159,28,0.5))',mixBlendMode:'multiply' as any}} alt='Dune'/>
+          <img src='/dune-celebre.png' style={{width:'70px',height:'70px',objectFit:'contain',animation:'bounce 2s infinite',filter:'drop-shadow(0 4px 12px rgba(255,159,28,0.5))',mixBlendMode:'screen' as any}} alt='Dune'/>
           <div>
             <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'1.5rem', fontWeight:700, color:'#ff9f1c'}}>{streak} jour{streak > 1 ? 's' : ''}</div>
             <div style={{fontSize:'0.8rem', color:'#8e8cb0', fontWeight:600}}>Streak de révision</div>
