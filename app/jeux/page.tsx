@@ -255,6 +255,8 @@ export default function Jeux() {
   }
 
   return (
+    <>
+    <style dangerouslySetInnerHTML={{__html: "@keyframes bounce { 0%,100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }"}} />
     <div style={{minHeight:'100vh', position:'relative', zIndex:1}}>
       <nav style={{position:'sticky', top:0, zIndex:100, background:'rgba(10,9,20,0.97)', backdropFilter:'blur(20px)', borderBottom:'2px solid #2a2740', paddingTop:'54px', paddingLeft:'16px', paddingRight:'16px', paddingBottom:'12px', display:'flex', alignItems:'center', gap:'12px'}}>
         <button onClick={()=>mode==='menu'?router.push('/app'):setMode('menu')} style={{...btn, background:'rgba(255,255,255,0.06)', color:'#8e8cb0', padding:'6px 12px'}}>← {mode==='menu'?'App':'Menu'}</button>
@@ -268,7 +270,7 @@ export default function Jeux() {
         {mode==='menu' && (
           <div>
             <div style={{textAlign:'center', marginBottom:'28px'}}>
-              <div style={{fontSize:'2.5rem', marginBottom:'10px'}}>🎮</div>
+              <img src='/dune-pointe.png' style={{width:'90px',height:'90px',objectFit:'contain',animation:'bounce 2s infinite',filter:'drop-shadow(0 4px 16px rgba(124,92,252,0.5))'}} alt='Dune'/>
               <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'1.3rem', fontWeight:700, marginBottom:'6px'}}>Apprends en jouant</div>
               <p style={{fontSize:'0.84rem', color:'#8e8cb0', fontWeight:600}}>Gagne des XP en t'amusant</p>
             </div>
@@ -376,7 +378,7 @@ export default function Jeux() {
         {/* SPEED QUIZ RÉSULTAT */}
         {mode==='speedquiz' && sqFinished && (
           <div style={{textAlign:'center', padding:'40px 20px'}}>
-            <div style={{fontSize:'3rem', marginBottom:'16px'}}>{sqScore>=80?'🏆':sqScore>=50?'⭐':'💪'}</div>
+            <img src={sqScore>=50?'/dune-celebre.png':'/dune-lit.png'} style={{width:'100px',height:'100px',objectFit:'contain',animation:'bounce 1.5s infinite',filter:'drop-shadow(0 4px 16px rgba(124,92,252,0.5))',marginBottom:'8px'}} alt='Dune'/>
             <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'2rem', fontWeight:700, color:'#ffd166', marginBottom:'8px'}}>{sqScore} pts</div>
             <div style={{fontSize:'0.88rem', color:'#8e8cb0', fontWeight:600, marginBottom:'24px'}}>
               {sqScore>=80?'Excellent ! Tu es imbattable 🔥':sqScore>=50?'Bien joué ! Continue comme ça 💪':'Encore un peu d\'entraînement 📚'}
@@ -474,7 +476,7 @@ export default function Jeux() {
         {/* DÉFI DU JOUR */}
         {mode==='defi' && defiQuestions.length===0 && (
           <div style={{textAlign:'center'}}>
-            <div style={{fontSize:'2rem', marginBottom:'10px'}}>🏆</div>
+            <img src='/dune-celebre.png' style={{width:'90px',height:'90px',objectFit:'contain',animation:'bounce 2s infinite',filter:'drop-shadow(0 4px 16px rgba(255,209,102,0.5))',marginBottom:'8px'}} alt='Dune'/>
             <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'1.2rem', fontWeight:700, marginBottom:'8px'}}>Défi du jour</div>
             <p style={{fontSize:'0.82rem', color:'#8e8cb0', fontWeight:600, marginBottom:'20px'}}>5 questions de culture générale. Un seul essai par jour !</p>
             <button onClick={startDefi} disabled={defiLoading} style={{...btn, background:'linear-gradient(135deg,#ffd166,#ff9f1c)', color:'#0a0914', width:'100%', padding:'14px', fontSize:'0.95rem', opacity:defiLoading?0.7:1}}>
@@ -508,5 +510,6 @@ export default function Jeux() {
       </div>
       <BottomNav active="app"/>
     </div>
+    </>
   )
 }
