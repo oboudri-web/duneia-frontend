@@ -262,15 +262,6 @@ export default function Landing() {
           </div>
         </div>
       </div>
-
-      {/* DUNE MASCOTTE */}
-      <div style={{position:'fixed', bottom:'24px', right:'16px', zIndex:99999, display:'flex', flexDirection:'column', alignItems:'flex-end', gap:'8px'}}>
-        <img src="/dune-mascotte.png" alt="Dune" onClick={()=>router.push('/auth?tab=signup')} style={{width:'90px', height:'90px', objectFit:'contain', cursor:'pointer', animation:'bounce 2s infinite', filter:'drop-shadow(0 4px 12px rgba(124,92,252,0.5))'}}/>
-        <div style={{background:'linear-gradient(135deg,#7c5cfc,#ff6b9d)', color:'white', borderRadius:'12px', padding:'8px 12px', fontSize:'0.75rem', fontWeight:800, boxShadow:'0 4px 20px rgba(124,92,252,0.4)', textAlign:'center', lineHeight:1.4}}>
-          Essai gratuit 🚀<br/><span style={{fontSize:'0.68rem', opacity:0.85}}>Sans CB requis</span>
-        </div>
-      </div>
-      <style dangerouslySetInnerHTML={{__html: "@keyframes bounce { 0%,100% { transform: translateY(0px); } 50% { transform: translateY(-8px); } }"}} />
       {/* FOOTER */}
       {/* FAQ */}
       <div style={{padding:'60px 16px', maxWidth:'760px', margin:'0 auto'}}>
