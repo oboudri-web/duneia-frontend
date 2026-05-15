@@ -61,6 +61,8 @@ export default function Classement() {
   const ligueEmoji = (rang: number) => rang === 1 ? '🥇' : rang === 2 ? '🥈' : rang === 3 ? '🥉' : `#${rang}`
 
   return (
+    <>
+    <style dangerouslySetInnerHTML={{__html: "@keyframes bounce { 0%,100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }"}} />
     <div style={{minHeight:'100vh', position:'relative', zIndex:1}}>
       <nav style={{position:'sticky', top:0, zIndex:100, background:'rgba(10,9,20,0.97)', backdropFilter:'blur(20px)', borderBottom:'2px solid #2a2740', paddingTop:'54px', paddingLeft:'16px', paddingRight:'16px', paddingBottom:'12px', display:'flex', alignItems:'center', gap:'12px'}}>
         <button onClick={()=>router.push('/app')} style={{background:'rgba(255,255,255,0.06)', border:'2px solid #2a2740', borderRadius:'9px', color:'#8e8cb0', padding:'6px 12px', cursor:'pointer', fontFamily:'Nunito,sans-serif', fontWeight:800, fontSize:'0.82rem'}}>← App</button>
@@ -72,7 +74,7 @@ export default function Classement() {
         
         {/* Streak banner */}
         <div style={{background:'linear-gradient(135deg,rgba(255,159,28,0.15),rgba(255,107,157,0.08))', border:'2px solid rgba(255,159,28,0.3)', borderRadius:'18px', padding:'20px', marginBottom:'16px', display:'flex', alignItems:'center', gap:'16px'}}>
-          <div style={{fontSize:'2.5rem'}}>🔥</div>
+          <img src='/dune-celebre.png' style={{width:'70px',height:'70px',objectFit:'contain',animation:'bounce 2s infinite',filter:'drop-shadow(0 4px 12px rgba(255,159,28,0.5))'}} alt='Dune'/>
           <div>
             <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'1.5rem', fontWeight:700, color:'#ff9f1c'}}>{streak} jour{streak > 1 ? 's' : ''}</div>
             <div style={{fontSize:'0.8rem', color:'#8e8cb0', fontWeight:600}}>Streak de révision</div>
@@ -110,7 +112,7 @@ export default function Classement() {
             <div style={{textAlign:'center', padding:'30px', color:'#8e8cb0', fontWeight:600}}>Chargement...</div>
           ) : classement.length === 0 ? (
             <div style={{textAlign:'center', padding:'30px'}}>
-              <div style={{fontSize:'2rem', marginBottom:'12px'}}>🌟</div>
+              <img src='/dune-pointe.png' style={{width:'90px',height:'90px',objectFit:'contain',animation:'bounce 2s infinite',filter:'drop-shadow(0 4px 12px rgba(124,92,252,0.5))',marginBottom:'8px'}} alt='Dune'/>
               <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'1rem', fontWeight:700, marginBottom:'6px'}}>Sois le premier !</div>
               <p style={{fontSize:'0.82rem', color:'#8e8cb0', fontWeight:600}}>Commence à réviser pour apparaître dans le classement</p>
             </div>
@@ -175,5 +177,6 @@ export default function Classement() {
 
       <BottomNav active="app"/>
     </div>
+    </>
   )
 }
