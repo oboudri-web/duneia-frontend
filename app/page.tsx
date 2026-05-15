@@ -263,15 +263,6 @@ export default function Landing() {
         </div>
       </div>
 
-      {/* DUNE MASCOTTE - Landing discret */}
-      <div style={{position:'fixed', bottom:'24px', right:'16px', zIndex:999, display:'flex', flexDirection:'column', alignItems:'flex-end', gap:'8px'}}>
-        <div style={{background:'linear-gradient(135deg,#7c5cfc,#ff6b9d)', color:'white', borderRadius:'16px 16px 4px 16px', padding:'10px 14px', fontSize:'0.78rem', fontWeight:800, boxShadow:'0 4px 20px rgba(124,92,252,0.4)', maxWidth:'160px', textAlign:'center', lineHeight:1.4}}>
-          Essai gratuit 🚀<br/><span style={{fontSize:'0.7rem', opacity:0.85}}>Sans CB requis</span>
-        </div>
-        <img src="/dune-mascotte.png" alt="Dune" onClick={()=>router.push('/auth?tab=signup')} style={{width:'72px', height:'72px', objectFit:'contain', cursor:'pointer', animation:'bounce 2s infinite', filter:'drop-shadow(0 4px 12px rgba(124,92,252,0.5))'}}/>
-      </div>
-      <style>{`@keyframes bounce { 0%,100%{transform:translateY(0px)} 50%{transform:translateY(-8px)} }`}</style>
-
       {/* DUNE MASCOTTE */}
       <div style={{position:'fixed', bottom:'24px', right:'16px', zIndex:999, display:'flex', flexDirection:'column', alignItems:'flex-end', gap:'8px'}}>
         <div style={{background:'linear-gradient(135deg,#7c5cfc,#ff6b9d)', color:'white', borderRadius:'16px 16px 4px 16px', padding:'10px 14px', fontSize:'0.78rem', fontWeight:800, boxShadow:'0 4px 20px rgba(124,92,252,0.4)', maxWidth:'160px', textAlign:'center', lineHeight:1.4}}>
@@ -279,7 +270,7 @@ export default function Landing() {
         </div>
         <img src="/dune-mascotte.png" alt="Dune" onClick={()=>router.push('/auth?tab=signup')} style={{width:'72px', height:'72px', objectFit:'contain', cursor:'pointer', animation:'bounce 2s infinite', filter:'drop-shadow(0 4px 12px rgba(124,92,252,0.5))'}}/>
       </div>
-      <style>{\`@keyframes bounce { 0%,100%{transform:translateY(0px)} 50%{transform:translateY(-8px)} }\`}</style>
+      <style dangerouslySetInnerHTML={{__html: "@keyframes bounce { 0%,100% { transform: translateY(0px); } 50% { transform: translateY(-8px); } }"}} />
       {/* FOOTER */}
       {/* FAQ */}
       <div style={{padding:'60px 16px', maxWidth:'760px', margin:'0 auto'}}>
