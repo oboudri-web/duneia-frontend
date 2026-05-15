@@ -17,7 +17,7 @@ export default function Landing() {
         borderBottom:'1px solid rgba(255,255,255,0.08)'
       }}>
         <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'1.5rem', fontWeight:700, color:'#ffd166', display:'flex', alignItems:'center', gap:'8px'}}>
-          <img src="/dune-mascotte.png" style={{width:"32px",height:"32px",objectFit:"contain"}} alt="Dune"/> DuneIA
+          <img src="/dune-mascotte.png" style={{width:"42px",height:"42px",objectFit:"contain"}} alt="Dune"/> DuneIA
         </div>
         <div style={{marginLeft:'auto', display:'flex', gap:'10px'}}>
           <button onClick={()=>router.push('/auth')} style={{
@@ -290,7 +290,7 @@ export default function Landing() {
       </div>
 
       <footer style={{borderTop:'1px solid #2a2740', padding:'36px 24px', textAlign:'center', background:'#0a0914'}}>
-        <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'1.2rem', fontWeight:700, color:'#ffd166', marginBottom:'14px'}}><img src="/dune-mascotte.png" style={{width:"32px",height:"32px",objectFit:"contain"}} alt="Dune"/> DuneIA</div>
+        <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'1.2rem', fontWeight:700, color:'#ffd166', marginBottom:'14px'}}><img src="/dune-mascotte.png" style={{width:"42px",height:"42px",objectFit:"contain"}} alt="Dune"/> DuneIA</div>
         <div style={{display:'flex', gap:'18px', justifyContent:'center', flexWrap:'wrap', marginBottom:'14px'}}>
           {[
             {label:'Mentions légales', url:'https://duneia-frontend.vercel.app/mentions'},
