@@ -126,6 +126,8 @@ export default function Revision() {
   const btn = {padding:'8px 16px', borderRadius:'10px', border:'none', cursor:'pointer', fontFamily:'Nunito,sans-serif', fontWeight:800, fontSize:'0.82rem'}
 
   return (
+    <>
+    <style dangerouslySetInnerHTML={{__html: "@keyframes bounce { 0%,100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }"}} />
     <div style={{minHeight:'100vh', position:'relative', zIndex:1}}>
       <nav style={{position:'sticky', top:0, zIndex:100, background:'rgba(10,9,20,0.97)', backdropFilter:'blur(20px)', borderBottom:'2px solid #2a2740', paddingTop:'54px', paddingLeft:'16px', paddingRight:'16px', paddingBottom:'12px', display:'flex', alignItems:'center', gap:'12px'}}>
         <button onClick={()=>mode==='menu'?router.push('/app'):setMode('menu')} style={{...btn, background:'rgba(255,255,255,0.06)', color:'#8e8cb0'}}>← {mode==='menu'?'App':'Menu'}</button>
@@ -141,7 +143,7 @@ export default function Revision() {
         {mode==='menu' && (
           <div>
             <div style={{textAlign:'center', marginBottom:'30px'}}>
-              <div style={{fontSize:'3rem', marginBottom:'12px'}}>📚</div>
+              <img src='/dune-lit.png' style={{width:'90px',height:'90px',objectFit:'contain',animation:'bounce 2s infinite',filter:'drop-shadow(0 4px 12px rgba(124,92,252,0.5))',marginBottom:'8px'}} alt='Dune'/>
               <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'1.4rem', fontWeight:700, marginBottom:'8px'}}>Mode Révision</div>
               <p style={{fontSize:'0.84rem', color:'#8e8cb0', fontWeight:600}}>Choisis comment tu veux réviser aujourd'hui</p>
             </div>
@@ -286,7 +288,7 @@ export default function Revision() {
               </div>
             ) : finished ? (
               <div style={{textAlign:'center', padding:'40px 20px'}}>
-                <div style={{fontSize:'3rem', marginBottom:'16px'}}>{score>=4?'🏆':score>=3?'⭐':'💪'}</div>
+                <img src={score>=3?'/dune-celebre.png':'/dune-lit.png'} style={{width:'100px',height:'100px',objectFit:'contain',animation:'bounce 1.5s infinite',filter:'drop-shadow(0 4px 16px rgba(124,92,252,0.5))',marginBottom:'8px'}} alt='Dune'/>
                 <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'1.6rem', fontWeight:700, marginBottom:'8px'}}>
                   {score}/{qcm.questions.length} bonnes réponses
                 </div>
@@ -403,7 +405,7 @@ export default function Revision() {
               </div>
             ) : known.length + unknown.length === flashcards.cartes.length ? (
               <div style={{textAlign:'center', padding:'40px 20px'}}>
-                <div style={{fontSize:'3rem', marginBottom:'16px'}}>{known.length >= flashcards.cartes.length*0.7 ? '🏆' : '💪'}</div>
+                <img src={known.length >= flashcards.cartes.length*0.7 ? '/dune-celebre.png' : '/dune-lit.png'} style={{width:'100px',height:'100px',objectFit:'contain',animation:'bounce 1.5s infinite',filter:'drop-shadow(0 4px 16px rgba(124,92,252,0.5))',marginBottom:'8px'}} alt='Dune'/>
                 <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'1.6rem', fontWeight:700, marginBottom:'8px'}}>
                   {known.length}/{flashcards.cartes.length} mémorisées
                 </div>
@@ -499,7 +501,7 @@ export default function Revision() {
             {!resumeResult ? (
               <div>
                 <div style={{textAlign:'center', marginBottom:'24px'}}>
-                  <div style={{fontSize:'2rem', marginBottom:'10px'}}>📖</div>
+                  <img src='/dune-lit.png' style={{width:'70px',height:'70px',objectFit:'contain',animation:'bounce 2s infinite',filter:'drop-shadow(0 4px 12px rgba(124,92,252,0.5))',marginBottom:'8px'}} alt='Dune'/>
                   <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'1.2rem', fontWeight:700}}>Résumé de cours IA</div>
                   <p style={{fontSize:'0.82rem', color:'#8e8cb0', fontWeight:600, marginTop:'6px'}}>Colle ton cours ou prends une photo — DuneIA génère une fiche de révision complète</p>
                 </div>
