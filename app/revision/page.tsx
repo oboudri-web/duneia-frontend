@@ -606,8 +606,9 @@ export default function Revision() {
 
       {limiteType && <LimiteModal type={limiteType} onClose={()=>setLimiteType(null)}/>}
       <BottomNav active="app"/>
-      <style dangerouslySetInnerHTML={{__html: "@keyframes bounce { 0%,100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }"}}/> 
+      <style dangerouslySetInnerHTML={{__html: "@keyframes bounce { 0%,100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }"}}/>
     </div>
+    </>
   )
 }
 // jeu. 14 mai 2026 15:47:10 CEST
