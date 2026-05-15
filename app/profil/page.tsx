@@ -166,7 +166,8 @@ export default function Profil() {
           {[
             {label:'🔗 Connecter / changer Pronote', action:()=>router.push('/onboarding')},
             {label:'⭐ Gérer mon abonnement', action:()=>router.push('/paiement')},
-            {label:'🔗 Inviter un ami', action:()=>{
+            {label:'🎁 Parrainage — 1 mois offert', action:()=>router.push('/parrainage')},
+            {label:'🔗 Partager DuneIA', action:()=>{
               const msg = "J'utilise DuneIA pour réviser — c'est comme Duolingo mais pour tes notes Pronote ou EcoleDirecte ! Essai gratuit sur duneia.fr 🚀"
               if(navigator.share) {
                 navigator.share({ title: 'DuneIA', text: msg, url: 'https://duneia.fr' })

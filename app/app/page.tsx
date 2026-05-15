@@ -120,6 +120,17 @@ export default function App() {
     setXp(parsed.xp || 100)
     if(parsed.classe) setClasse(parsed.classe)
 
+    // Demander permission notifications
+    if(typeof window !== 'undefined' && 'Notification' in window && Notification.permission === 'default') {
+      setTimeout(()=>{
+        Notification.requestPermission().then(perm => {
+          if(perm === 'granted' && 'serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js')
+          }
+        })
+      }, 3000)
+    }
+
     // Charge les bulletins depuis Supabase si pas en localStorage
     const token = localStorage.getItem('duneia_token')
     const savedNotes = localStorage.getItem('duneia_notes')
