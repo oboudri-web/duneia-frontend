@@ -1,8 +1,10 @@
 'use client'
 import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 
 export default function Landing() {
   const router = useRouter()
+  const [openFaq, setOpenFaq] = useState<number|null>(null)
 
   return (
     <div style={{position:'relative', zIndex:1}}>
@@ -294,8 +296,13 @@ export default function Landing() {
           {q:"DuneIA fonctionne avec EcoleDirecte ?", a:"En cours de développement. Actuellement connecté à Pronote (18 millions élèves). Saisie manuelle ou photo de bulletin disponibles."},
         ].map((item, i) => (
           <div key={i} style={{borderBottom:'1px solid #2a2740', padding:'20px 0'}}>
-            <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'1rem', fontWeight:700, marginBottom:'10px', color:'#f0eeff'}}>{item.q}</div>
-            <p style={{fontSize:'0.85rem', color:'#8e8cb0', fontWeight:600, lineHeight:1.8, margin:0}}>{item.a}</p>
+            <div onClick={()=>setOpenFaq(openFaq===i?null:i)} style={{fontFamily:'Fredoka,sans-serif', fontSize:'1rem', fontWeight:700, color:'#f0eeff', cursor:'pointer', display:'flex', justifyContent:'space-between', alignItems:'center', gap:'12px'}}>
+              {item.q}
+              <span style={{color:'#7c5cfc', fontSize:'1.2rem', flexShrink:0, transition:'transform 0.3s', transform:openFaq===i?'rotate(45deg)':'rotate(0deg)'}}>+</span>
+            </div>
+            {openFaq===i && (
+              <p style={{fontSize:'0.85rem', color:'#8e8cb0', fontWeight:600, lineHeight:1.8, margin:'12px 0 0'}}>{item.a}</p>
+            )}
           </div>
         ))}
       </div>
