@@ -270,7 +270,7 @@ export default function Jeux() {
         {mode==='menu' && (
           <div>
             <div style={{textAlign:'center', marginBottom:'28px'}}>
-              <img src='/dune-pointe.png' style={{width:'90px',height:'90px',objectFit:'contain',animation:'bounce 2s infinite',filter:'drop-shadow(0 4px 16px rgba(124,92,252,0.5))'}} alt='Dune'/>
+              <img src='/dune-pointe.png' style={{width:'90px',height:'90px',objectFit:'contain',animation:'bounce 2s infinite',filter:'drop-shadow(0 4px 16px rgba(124,92,252,0.5))',mixBlendMode:'multiply' as any}} alt='Dune'/>
               <div style={{fontFamily:'Fredoka,sans-serif', fontSize:'1.3rem', fontWeight:700, marginBottom:'6px'}}>Apprends en jouant</div>
               <p style={{fontSize:'0.84rem', color:'#8e8cb0', fontWeight:600}}>Gagne des XP en t'amusant</p>
             </div>
