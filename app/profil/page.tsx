@@ -167,6 +167,8 @@ export default function Profil() {
             {label:'🔗 Connecter / changer Pronote', action:()=>router.push('/onboarding')},
             {label:'⭐ Gérer mon abonnement', action:()=>router.push('/paiement')},
             {label:'🎁 Parrainage — 1 mois offert', action:()=>router.push('/parrainage')},
+            {label:'🐛 Signaler un problème', action:()=>window.open('mailto:support@duneia.fr?subject=Problème DuneIA&body=Décris ton problème ici...', '_blank')},
+            {label:'💬 Nous contacter', action:()=>window.open('mailto:hello@duneia.fr', '_blank')},
             {label:'🔗 Partager DuneIA', action:()=>{
               const msg = "J'utilise DuneIA pour réviser — c'est comme Duolingo mais pour tes notes Pronote ou EcoleDirecte ! Essai gratuit sur duneia.fr 🚀"
               if(navigator.share) {
